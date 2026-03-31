@@ -1,739 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AccuTrade × Cars.com — Integration Concept</title>
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --cars-red: #C8102E;
-    --cars-red-bg: #fff0f1;
-    --cars-red-border: #fecdd3;
-    --at-green: #16a34a;
-    --at-green-bg: #f0fdf4;
-    --at-green-border: #bbf7d0;
-  }
-
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
-    background: #f1f4f8;
-    color: #1a2035;
-    display: flex;
-    min-height: 100vh;
-    font-size: 14px;
-  }
-
-  /* ── SIDEBAR ── */
-  .sidebar {
-    width: 64px;
-    background: #111827;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    flex-shrink: 0;
-    position: fixed;
-    top: 0; left: 0; bottom: 0;
-    z-index: 200;
-    transition: width 0.25s cubic-bezier(0.4,0,0.2,1);
-    overflow: hidden;
-  }
-  .sidebar:hover {
-    width: 200px;
-    box-shadow: 4px 0 24px rgba(0,0,0,0.25);
-  }
-  .sidebar-logo {
-    width: 100%; height: 56px;
-    background: var(--at-green);
-    display: flex; align-items: center;
-    padding: 0 22px;
-    font-weight: 800; color: white; font-size: 16px; letter-spacing: -0.5px;
-    gap: 10px; flex-shrink: 0;
-  }
-  .sidebar-logo-text {
-    opacity: 0; white-space: nowrap; font-size: 14px; font-weight: 700;
-    transition: opacity 0.15s ease 0.1s;
-  }
-  .sidebar:hover .sidebar-logo-text { opacity: 1; }
-  .sidebar-nav {
-    display: flex; flex-direction: column; align-items: flex-start;
-    gap: 4px; padding: 12px 8px; flex: 1; width: 100%;
-  }
-  .nav-item {
-    width: 100%; height: 48px; border-radius: 10px;
-    display: flex; flex-direction: row; align-items: center;
-    padding: 0 14px; gap: 12px;
-    cursor: pointer; color: #6b7280;
-    transition: background 0.15s, color 0.15s;
-    white-space: nowrap;
-  }
-  .nav-item:hover { background: #1f2937; color: #d1d5db; }
-  .nav-item.active { background: #1f2937; color: #fff; }
-  .nav-item svg { width: 20px; height: 20px; flex-shrink: 0; }
-  .nav-label {
-    opacity: 0; font-size: 13px; font-weight: 600;
-    transition: opacity 0.15s ease 0.08s;
-  }
-  .sidebar:hover .nav-label { opacity: 1; }
-  .sidebar-health {
-    padding: 12px 14px; width: 100%;
-    display: flex; align-items: center; gap: 10px;
-    border-top: 1px solid #1f2937; cursor: pointer; flex-shrink: 0;
-  }
-  .health-dot {
-    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
-    background: var(--at-green);
-    animation: health-pulse 2.5s ease-in-out infinite;
-  }
-  @keyframes health-pulse {
-    0%,100% { box-shadow: 0 0 0 0 rgba(22,163,74,0.5); }
-    50% { box-shadow: 0 0 0 5px rgba(22,163,74,0); }
-  }
-  .health-label {
-    font-size: 10px; color: #6b7280; white-space: nowrap;
-    opacity: 0; transition: opacity 0.15s ease 0.08s;
-  }
-  .sidebar:hover .health-label { opacity: 1; }
-
-  /* ── MAIN ── */
-  .main { margin-left: 64px; flex: 1; display: flex; flex-direction: column; min-width: 0; }
-
-  /* ── TOP BAR ── */
-  .topbar {
-    height: 56px; background: white; border-bottom: 1px solid #e5e7eb;
-    display: flex; align-items: center; padding: 0 24px; gap: 12px;
-    position: sticky; top: 0; z-index: 50;
-  }
-  .topbar-title { font-size: 16px; font-weight: 700; color: #111827; }
-  .topbar-sub { font-size: 13px; color: #6b7280; }
-  .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
-  .badge-v2 {
-    display: inline-flex; align-items: center;
-    background: linear-gradient(90deg, var(--at-green), #22c55e);
-    color: white; font-size: 9px; font-weight: 800;
-    text-transform: uppercase; letter-spacing: 1px;
-    padding: 2px 8px; border-radius: 20px; vertical-align: middle; margin-left: 8px;
-  }
-  .badge-integration {
-    display: inline-flex; align-items: center; gap: 4px;
-    background: linear-gradient(90deg, var(--cars-red), #e84060);
-    color: white; font-size: 9px; font-weight: 800;
-    text-transform: uppercase; letter-spacing: 0.8px;
-    padding: 3px 10px; border-radius: 20px; margin-left: 6px;
-  }
-  .dealer-switcher {
-    background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px;
-    padding: 6px 12px; font-size: 13px; font-weight: 600; color: #374151;
-    cursor: pointer; display: flex; align-items: center; gap: 6px;
-  }
-  .dealer-switcher:hover { background: #f3f4f6; }
-  .period-select {
-    background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px;
-    padding: 6px 12px; font-size: 13px; font-weight: 500; color: #374151;
-    cursor: pointer; display: flex; align-items: center; gap: 6px;
-  }
-  .btn-topbar {
-    display: flex; align-items: center; gap: 5px;
-    padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600;
-    border: 1px solid #e5e7eb; background: white; color: #374151; cursor: pointer;
-  }
-  .btn-topbar:hover { background: #f9fafb; }
-  .btn-topbar.primary {
-    background: var(--at-green); color: white; border-color: var(--at-green);
-  }
-  .btn-topbar.primary:hover { background: #15803d; }
-  .notif-btn {
-    width: 36px; height: 36px; border-radius: 8px; border: 1px solid #e5e7eb;
-    background: white; display: flex; align-items: center; justify-content: center;
-    cursor: pointer; position: relative;
-  }
-  .notif-btn:hover { background: #f9fafb; }
-  .notif-badge {
-    position: absolute; top: -4px; right: -4px;
-    width: 16px; height: 16px; border-radius: 50%;
-    background: var(--cars-red); color: white; font-size: 9px; font-weight: 800;
-    display: flex; align-items: center; justify-content: center;
-  }
-
-  /* ── FRESHNESS BAR ── */
-  .freshness-bar {
-    background: white; border-bottom: 1px solid #f3f4f6;
-    padding: 5px 24px;
-    display: flex; align-items: center; gap: 16px;
-    font-size: 11px; color: #6b7280;
-  }
-  .freshness-item { display: flex; align-items: center; gap: 6px; }
-  .freshness-dot {
-    width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
-    animation: health-pulse 2.5s ease-in-out infinite;
-  }
-  .freshness-dot.green { background: var(--at-green); }
-  .freshness-divider { width: 1px; height: 12px; background: #e5e7eb; }
-  .freshness-tag {
-    font-size: 9px; font-weight: 700; padding: 1px 6px; border-radius: 3px;
-    text-transform: uppercase; letter-spacing: 0.4px;
-  }
-  .freshness-tag.cars { background: var(--cars-red-bg); color: var(--cars-red); }
-  .freshness-tag.at { background: var(--at-green-bg); color: var(--at-green); }
-
-  /* ── NBA BANNER ── */
-  .nba-wrap { padding: 16px 24px 0; }
-  .nba-banner {
-    background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px;
-    padding: 10px 16px;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .nba-icon {
-    width: 28px; height: 28px; border-radius: 6px;
-    background: #f59e0b; display: flex; align-items: center; justify-content: center;
-    font-size: 15px; flex-shrink: 0;
-  }
-  .nba-text { flex: 1; font-size: 13px; font-weight: 600; color: #92400e; }
-  .nba-text strong { color: #78350f; }
-  .nba-cta {
-    background: #f59e0b; color: white; font-size: 12px; font-weight: 700;
-    padding: 6px 14px; border-radius: 6px; cursor: pointer; white-space: nowrap;
-  }
-  .nba-cta:hover { background: #d97706; }
-  .nba-dismiss {
-    color: #9ca3af; font-size: 18px; cursor: pointer; line-height: 1; padding: 2px 4px;
-  }
-  .nba-dismiss:hover { color: #374151; }
-
-  /* ── PAGE ── */
-  .page-content { padding: 20px 24px 32px; display: flex; flex-direction: column; gap: 20px; }
-  .section-label {
-    font-size: 11px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1px; color: #9ca3af; margin-bottom: 4px;
-  }
-
-  /* ── ROI HERO STRIP ── */
-  .roi-hero-strip { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
-  .roi-hero-card {
-    background: white; border-radius: 12px; padding: 16px 20px;
-    border-left: 4px solid; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-  }
-  .roi-hero-card.green { border-left-color: var(--at-green); }
-  .roi-hero-card.red { border-left-color: var(--cars-red); }
-  .roi-hero-card.blue { border-left-color: #2563eb; }
-  .roi-hero-card.amber { border-left-color: #f59e0b; }
-  .roi-hero-tag {
-    font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px;
-    margin-bottom: 6px;
-  }
-  .roi-hero-card.green .roi-hero-tag { color: var(--at-green); }
-  .roi-hero-card.red .roi-hero-tag { color: var(--cars-red); }
-  .roi-hero-card.blue .roi-hero-tag { color: #2563eb; }
-  .roi-hero-card.amber .roi-hero-tag { color: #d97706; }
-  .roi-hero-val {
-    font-size: 30px; font-weight: 900; line-height: 1; font-variant-numeric: tabular-nums;
-  }
-  .roi-hero-card.green .roi-hero-val { color: var(--at-green); }
-  .roi-hero-card.red .roi-hero-val { color: var(--cars-red); }
-  .roi-hero-card.blue .roi-hero-val { color: #2563eb; }
-  .roi-hero-card.amber .roi-hero-val { color: #d97706; }
-  .roi-hero-label { font-size: 11px; color: #6b7280; margin-top: 5px; line-height: 1.35; }
-
-  /* ── TODAY'S PRIORITIES ── */
-  .priorities-card {
-    background: white; border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06); overflow: hidden;
-  }
-  .priorities-header {
-    padding: 11px 18px; background: #f9fafb; border-bottom: 1px solid #f3f4f6;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .priorities-title { font-size: 13px; font-weight: 700; color: #111827; display: flex; align-items: center; gap: 8px; }
-  .priority-item {
-    display: flex; align-items: center; gap: 14px;
-    padding: 11px 18px; border-bottom: 1px solid #f9fafb;
-    cursor: pointer; transition: background 0.1s;
-  }
-  .priority-item:last-child { border-bottom: none; }
-  .priority-item:hover { background: #fafafa; }
-  .priority-num {
-    width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 800;
-  }
-  .priority-num.p1 { background: #fef2f2; color: var(--cars-red); }
-  .priority-num.p2 { background: #fffbeb; color: #d97706; }
-  .priority-num.p3 { background: #eff6ff; color: #2563eb; }
-  .priority-text { flex: 1; font-size: 13px; color: #374151; }
-  .priority-text strong { color: #111827; }
-  .priority-impact { font-size: 12px; font-weight: 800; white-space: nowrap; font-variant-numeric: tabular-nums; }
-  .priority-impact.save { color: var(--at-green); }
-  .priority-impact.risk { color: var(--cars-red); }
-  .priority-impact.earn { color: #2563eb; }
-  .priority-btn {
-    font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 5px; cursor: pointer;
-    white-space: nowrap; border: 1px solid;
-  }
-  .priority-btn.red { background: var(--cars-red-bg); color: var(--cars-red); border-color: var(--cars-red-border); }
-  .priority-btn.amber { background: #fffbeb; color: #d97706; border-color: #fde68a; }
-  .priority-btn.blue { background: #eff6ff; color: #2563eb; border-color: #bfdbfe; }
-
-  /* ── PARTNERSHIP BANNER ── */
-  .partner-banner {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #312e81 100%);
-    border-radius: 14px; padding: 20px 28px; color: white;
-    display: flex; align-items: center; justify-content: space-between;
-    position: relative; overflow: hidden;
-  }
-  .partner-banner::before {
-    content: ''; position: absolute;
-    top: -60px; right: 80px; width: 200px; height: 200px;
-    background: rgba(200,16,46,0.08); border-radius: 50%;
-  }
-  .partner-banner::after {
-    content: ''; position: absolute;
-    bottom: -80px; right: -20px; width: 260px; height: 260px;
-    background: rgba(34,197,94,0.06); border-radius: 50%;
-  }
-  .partner-left { display: flex; align-items: center; gap: 20px; position: relative; z-index: 1; }
-  .partner-logos { display: flex; align-items: center; gap: 10px; }
-  .logo-box {
-    width: 44px; height: 44px; border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 900; font-size: 14px; color: white;
-  }
-  .logo-box.at { background: var(--at-green); }
-  .logo-box.cars { background: white; color: var(--cars-red); font-size: 11px; font-weight: 800; letter-spacing: -0.3px; }
-  .logo-connector { color: #475569; font-size: 18px; }
-  .partner-text h2 { font-size: 18px; font-weight: 800; margin-bottom: 3px; }
-  .partner-text p { font-size: 13px; color: #94a3b8; line-height: 1.4; }
-  .partner-right { position: relative; z-index: 1; display: flex; gap: 16px; }
-  .partner-stat {
-    text-align: center; padding: 10px 16px;
-    background: rgba(255,255,255,0.06); border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.08);
-  }
-  .partner-stat-val { font-size: 17px; font-weight: 800; color: #a78bfa; font-variant-numeric: tabular-nums; }
-  .partner-stat-val.green { color: #4ade80; }
-  .partner-stat-val.red { color: #f87171; }
-  .partner-stat-label { font-size: 10px; color: #94a3b8; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
-
-  /* ── MARKET PULSE ── */
-  .market-pulse {
-    background: white; border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06); overflow: hidden;
-  }
-  .mp-header {
-    padding: 14px 20px; border-bottom: 1px solid #f3f4f6;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .mp-header-left { display: flex; align-items: center; gap: 8px; }
-  .mp-title { font-size: 14px; font-weight: 700; color: #111827; }
-  .mp-source {
-    font-size: 10px; font-weight: 700; color: var(--cars-red);
-    background: var(--cars-red-bg); padding: 2px 8px; border-radius: 4px;
-    text-transform: uppercase; letter-spacing: 0.5px;
-  }
-  .mp-updated { font-size: 11px; color: #9ca3af; }
-  .mp-grid { display: grid; grid-template-columns: repeat(5,1fr); }
-  .mp-item {
-    padding: 14px 16px; text-align: center;
-    border-right: 1px solid #f3f4f6; cursor: pointer; transition: background 0.15s;
-  }
-  .mp-item:last-child { border-right: none; }
-  .mp-item:hover { background: #f9fafb; }
-  .mp-segment { font-size: 11px; font-weight: 600; color: #374151; margin-bottom: 6px; }
-  .mp-trend {
-    display: inline-flex; align-items: center; gap: 3px;
-    font-size: 13px; font-weight: 800; padding: 3px 8px; border-radius: 6px;
-  }
-  .mp-trend.up { background: var(--at-green-bg); color: var(--at-green); }
-  .mp-trend.down { background: #fef2f2; color: #dc2626; }
-  .mp-trend.flat { background: #f9fafb; color: #6b7280; }
-  .mp-sparkline { margin: 6px auto 2px; display: block; }
-  .mp-demand { font-size: 10px; color: #9ca3af; margin-top: 2px; }
-  .mp-inventory-match {
-    font-size: 10px; font-weight: 600; margin-top: 5px; padding: 2px 6px;
-    border-radius: 3px; display: inline-block;
-  }
-  .mp-inventory-match.overstock { background: #fef2f2; color: #dc2626; }
-  .mp-inventory-match.balanced { background: var(--at-green-bg); color: var(--at-green); }
-  .mp-inventory-match.understock { background: #fffbeb; color: #d97706; }
-
-  /* ── ACQUISITION OPPORTUNITIES ── */
-  .acq-card {
-    background: white; border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06); overflow: hidden;
-  }
-  .acq-header {
-    padding: 14px 20px; border-bottom: 1px solid #f3f4f6;
-    background: linear-gradient(90deg, #0f172a, #1e3a5f);
-    display: flex; align-items: center; justify-content: space-between; color: white;
-  }
-  .acq-header-title { font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
-  .acq-header-sub { font-size: 11px; color: #94a3b8; margin-top: 2px; }
-  .acq-grid { display: grid; grid-template-columns: repeat(3,1fr); }
-  .acq-item {
-    padding: 16px 18px; border-right: 1px solid #f3f4f6;
-    position: relative; cursor: pointer; transition: background 0.15s;
-  }
-  .acq-item:last-child { border-right: none; }
-  .acq-item:hover { background: #fafafa; }
-  .acq-rank {
-    position: absolute; top: 10px; right: 12px;
-    width: 22px; height: 22px; border-radius: 50%;
-    font-size: 10px; font-weight: 800;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .acq-rank.r1 { background: #fef9c3; color: #d97706; }
-  .acq-rank.r2 { background: #f3f4f6; color: #6b7280; }
-  .acq-rank.r3 { background: #f3f4f6; color: #6b7280; }
-  .acq-segment { font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 3px; }
-  .acq-why { font-size: 11px; color: #6b7280; margin-bottom: 10px; line-height: 1.4; }
-  .acq-gross { font-size: 22px; font-weight: 900; color: var(--at-green); font-variant-numeric: tabular-nums; }
-  .acq-gross-label { font-size: 10px; color: #9ca3af; margin-top: 1px; }
-  .acq-cta {
-    margin-top: 10px; display: inline-flex; align-items: center; gap: 4px;
-    font-size: 10px; font-weight: 700; color: var(--cars-red);
-    background: var(--cars-red-bg); padding: 3px 8px; border-radius: 4px;
-    border: 1px solid var(--cars-red-border);
-  }
-  .acq-bar-bg { height: 4px; background: #f3f4f6; border-radius: 2px; overflow: hidden; margin-top: 8px; }
-  .acq-bar-fill { height: 100%; border-radius: 2px; }
-
-  /* ── CARDS ── */
-  .card {
-    background: white; border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-    overflow: hidden;
-  }
-  .card-header {
-    padding: 16px 20px 14px; border-bottom: 1px solid #f3f4f6;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .card-title { font-size: 14px; font-weight: 700; color: #111827; }
-  .card-subtitle { font-size: 12px; color: #9ca3af; margin-top: 2px; }
-  .card-body { padding: 20px; }
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-
-  /* ── APPRAISAL CONTEXT CARD ── */
-  .context-card {
-    background: white; border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06); overflow: hidden;
-    position: relative;
-  }
-  .context-card.buy-card { border-left: 4px solid var(--at-green); }
-  .context-card.pass-card { border-left: 4px solid #dc2626; }
-  .rec-stamp {
-    position: absolute; top: 18px; right: 18px; z-index: 5;
-    font-size: 14px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
-    padding: 4px 12px; border-radius: 4px; border: 2.5px solid;
-    transform: rotate(12deg); opacity: 0.15; pointer-events: none;
-    transition: opacity 0.2s;
-  }
-  .context-card:hover .rec-stamp { opacity: 0.32; }
-  .rec-stamp.buy { color: var(--at-green); border-color: var(--at-green); }
-  .rec-stamp.pass { color: #dc2626; border-color: #dc2626; }
-
-  .context-header {
-    padding: 14px 18px; display: flex; align-items: center; gap: 10px;
-    border-bottom: 1px solid #f3f4f6;
-  }
-  .context-card.buy-card .context-header { background: var(--at-green-bg); border-bottom-color: var(--at-green-border); }
-  .context-card.pass-card .context-header { background: #fef2f2; border-bottom-color: #fecaca; }
-  .context-vin-label { font-size: 11px; color: #6b7280; font-weight: 500; }
-  .context-vehicle { font-size: 15px; font-weight: 800; color: #111827; }
-  .context-vin { font-size: 11px; color: #9ca3af; font-family: monospace; }
-  .view-toggle {
-    display: flex; border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden;
-    margin-left: auto; flex-shrink: 0;
-  }
-  .view-tab {
-    padding: 4px 10px; font-size: 11px; font-weight: 600; color: #6b7280;
-    background: white; cursor: pointer; white-space: nowrap; transition: background 0.1s;
-  }
-  .view-tab.active { background: #111827; color: white; }
-
-  .context-grid { display: grid; grid-template-columns: 1fr 1fr; }
-  .context-section {
-    padding: 16px 18px; border-right: 1px solid #f3f4f6; border-bottom: 1px solid #f3f4f6;
-  }
-  .context-section:nth-child(2n) { border-right: none; }
-  .context-section-title {
-    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px;
-    color: #6b7280; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
-  }
-  .cs-source {
-    font-size: 9px; font-weight: 700; color: var(--cars-red);
-    background: var(--cars-red-bg); padding: 1px 5px; border-radius: 3px;
-  }
-  .cs-source.at { color: var(--at-green); background: var(--at-green-bg); }
-
-  /* Price Badge with tooltip */
-  .price-badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 6px 12px; border-radius: 8px; font-weight: 800; font-size: 14px;
-    position: relative; cursor: pointer;
-  }
-  .price-badge.great { background: var(--at-green-bg); color: var(--at-green); border: 1px solid var(--at-green-border); }
-  .price-badge.good { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
-  .price-badge.fair { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
-  .price-badge.high { background: #fff7ed; color: #ea580c; border: 1px solid #fed7aa; }
-  .price-badge.over { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
-  .price-badge-dot { width: 8px; height: 8px; border-radius: 50%; }
-  .price-badge.great .price-badge-dot { background: var(--at-green); }
-  .price-badge.good .price-badge-dot { background: #2563eb; }
-  .price-badge.fair .price-badge-dot { background: #d97706; }
-  .price-badge.high .price-badge-dot { background: #ea580c; }
-  .price-badge.over .price-badge-dot { background: #dc2626; }
-  .badge-tooltip {
-    display: none; position: absolute; bottom: calc(100% + 8px); left: 0;
-    background: #111827; color: white; font-size: 11px; font-weight: 400; line-height: 1.45;
-    padding: 8px 12px; border-radius: 8px; width: 230px; z-index: 100;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.25); pointer-events: none;
-  }
-  .badge-tooltip::after {
-    content: ''; position: absolute; top: 100%; left: 16px;
-    border: 5px solid transparent; border-top-color: #111827;
-  }
-  .price-badge:hover .badge-tooltip { display: block; }
-
-  .price-detail { font-size: 12px; color: #6b7280; margin-top: 6px; line-height: 1.4; }
-  .price-adjust { margin-top: 8px; font-size: 12px; font-weight: 600; color: var(--at-green); display: flex; align-items: center; gap: 4px; }
-
-  /* Demand */
-  .demand-gauge { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
-  .demand-score-ring {
-    width: 56px; height: 56px; border-radius: 50%; position: relative;
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.8s ease;
-  }
-  .demand-score-val { font-size: 20px; font-weight: 900; }
-  .demand-score-label { font-size: 9px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.3px; }
-  .demand-meta { font-size: 12px; color: #6b7280; line-height: 1.5; }
-  .demand-meta strong { color: #111827; }
-
-  /* Competition */
-  .comp-row { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; font-size: 12px; }
-  .comp-bar-wrap { width: 100%; height: 8px; background: #f3f4f6; border-radius: 4px; overflow: hidden; margin-top: 6px; }
-  .comp-bar-fill { height: 100%; border-radius: 4px; }
-  .comp-rank { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 800; margin-top: 6px; }
-
-  /* Offer */
-  .offer-box {
-    background: var(--at-green-bg); border: 1px solid var(--at-green-border); border-radius: 10px;
-    padding: 14px 16px; text-align: center;
-  }
-  .offer-val { font-size: 26px; font-weight: 900; color: var(--at-green); font-variant-numeric: tabular-nums; }
-  .offer-label { font-size: 11px; color: #6b7280; margin-top: 2px; }
-  .offer-detail { font-size: 12px; color: #15803d; margin-top: 6px; font-weight: 600; }
-
-  /* ── 30-DAY TREND STRIP ── */
-  .trend-strip {
-    background: white; border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06); overflow: hidden;
-  }
-  .trend-strip-header {
-    padding: 12px 20px; border-bottom: 1px solid #f3f4f6;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .trend-strip-title { font-size: 13px; font-weight: 700; color: #111827; }
-  .trend-strip-grid { display: grid; grid-template-columns: repeat(4,1fr); padding: 16px 20px; gap: 24px; }
-  .trend-metric { text-align: center; }
-  .trend-metric-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #9ca3af; margin-bottom: 10px; }
-  .trend-bars { display: flex; align-items: flex-end; gap: 3px; height: 44px; justify-content: center; }
-  .trend-bar { width: 12px; border-radius: 2px 2px 0 0; cursor: pointer; transition: opacity 0.15s; }
-  .trend-bar:hover { opacity: 0.7; }
-  .trend-metric-val { font-size: 20px; font-weight: 800; margin-top: 8px; font-variant-numeric: tabular-nums; }
-  .trend-metric-delta { font-size: 11px; font-weight: 700; margin-top: 2px; }
-
-  /* ── INVENTORY TABLE ── */
-  .inv-table-wrap { overflow-x: auto; }
-  .inv-table { width: 100%; border-collapse: collapse; }
-  .inv-table thead th {
-    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
-    color: #6b7280; padding: 10px 12px; text-align: left;
-    background: #f9fafb; border-bottom: 2px solid #e5e7eb;
-    position: sticky; top: 56px; z-index: 10; white-space: nowrap;
-    cursor: pointer; user-select: none;
-  }
-  .inv-table thead th:hover { background: #f3f4f6; color: #374151; }
-  .sort-icon { display: inline; color: #d1d5db; margin-left: 3px; font-size: 9px; }
-  .inv-table td {
-    padding: 11px 12px; border-bottom: 1px solid #f3f4f6; font-size: 13px;
-    color: #374151; vertical-align: middle;
-  }
-  .inv-table tr:hover td { background: #fafafa; }
-  .inv-table tr:hover .row-actions { visibility: visible; }
-  .inv-vehicle { font-weight: 700; color: #111827; }
-  .inv-vin { font-size: 10px; color: #9ca3af; font-family: monospace; margin-top: 1px; }
-  .inv-days { font-weight: 700; font-variant-numeric: tabular-nums; }
-  .inv-days.green { color: var(--at-green); }
-  .inv-days.yellow { color: #d97706; }
-  .inv-days.red { color: #dc2626; }
-  .row-actions { display: flex; gap: 4px; visibility: hidden; align-items: center; }
-  .row-act {
-    font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px;
-    cursor: pointer; border: 1px solid; white-space: nowrap;
-  }
-  .row-act.reprice { background: #fffbeb; color: #d97706; border-color: #fde68a; }
-  .row-act.wholesale { background: #fef2f2; color: #dc2626; border-color: #fecaca; }
-  .row-act.auction { background: #eff6ff; color: #2563eb; border-color: #bfdbfe; }
-  .badge-sm {
-    display: inline-flex; align-items: center; gap: 3px;
-    padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;
-  }
-  .badge-sm.great { background: var(--at-green-bg); color: var(--at-green); }
-  .badge-sm.good { background: #eff6ff; color: #2563eb; }
-  .badge-sm.fair { background: #fffbeb; color: #d97706; }
-  .badge-sm.high { background: #fff7ed; color: #ea580c; }
-  .badge-sm.over { background: #fef2f2; color: #dc2626; }
-  .demand-bar { width: 50px; height: 6px; background: #f3f4f6; border-radius: 3px; overflow: hidden; display: inline-block; vertical-align: middle; margin-right: 4px; }
-  .demand-bar-fill { height: 100%; border-radius: 3px; }
-  .action-badge {
-    display: inline-flex; align-items: center; gap: 5px;
-    padding: 4px 10px; border-radius: 5px; font-size: 10px; font-weight: 800;
-    text-transform: uppercase; letter-spacing: 0.4px; white-space: nowrap; cursor: pointer; border: 1px solid;
-  }
-  .action-badge.optimal { background: var(--at-green-bg); color: var(--at-green); border-color: var(--at-green-border); }
-  .action-badge.reprice { background: #fffbeb; color: #d97706; border-color: #fde68a; }
-  .action-badge.wholesale { background: #fef2f2; color: #dc2626; border-color: #fecaca; }
-  .inv-checkbox { width: 14px; height: 14px; accent-color: var(--at-green); cursor: pointer; }
-  .table-footer {
-    padding: 10px 16px; background: #f9fafb; border-top: 1px solid #f3f4f6;
-    font-size: 12px; color: #6b7280;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-
-  /* ── IO FUNNEL ── */
-  .io-funnel-row { display: flex; align-items: center; gap: 0; margin-bottom: 16px; }
-  .io-stage { flex: 1; text-align: center; padding: 16px 8px; position: relative; }
-  .io-stage-val { font-size: 28px; font-weight: 900; color: #111827; line-height: 1; font-variant-numeric: tabular-nums; }
-  .io-stage-label { font-size: 11px; color: #6b7280; margin-top: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; }
-  .io-stage-rate {
-    font-size: 11px; font-weight: 700; margin-top: 4px;
-    display: inline-flex; align-items: center; gap: 2px; padding: 2px 6px; border-radius: 20px;
-  }
-  .io-stage-rate.good { background: var(--at-green-bg); color: var(--at-green); }
-  .io-stage-rate.warn { background: #fffbeb; color: #d97706; }
-  .io-benchmark { font-size: 10px; color: #9ca3af; margin-top: 3px; }
-  .io-benchmark b { color: var(--at-green); }
-  .io-arrow { color: #d1d5db; font-size: 22px; flex-shrink: 0; }
-  .io-bar-bg { height: 6px; background: #f3f4f6; border-radius: 3px; overflow: hidden; margin-top: 8px; position: relative; }
-  .io-bar-fill { height: 100%; border-radius: 3px; }
-  .io-goal-mark {
-    position: absolute; top: -2px; bottom: -2px; width: 2px;
-    background: #6b7280; opacity: 0.5; border-radius: 1px;
-  }
-  .io-metrics-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
-  .io-metric-card {
-    background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 14px; text-align: center;
-  }
-  .io-metric-val { font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; }
-  .io-metric-val.green { color: var(--at-green); }
-  .io-metric-val.purple { color: #7c3aed; }
-  .io-metric-val.blue { color: #2563eb; }
-  .io-metric-label { font-size: 11px; color: #6b7280; margin-top: 3px; line-height: 1.3; }
-  .recover-cta {
-    display: inline-flex; align-items: center; gap: 5px;
-    background: var(--at-green); color: white; font-size: 12px; font-weight: 700;
-    padding: 6px 14px; border-radius: 6px; cursor: pointer; margin-left: 10px;
-  }
-  .recover-cta:hover { background: #15803d; }
-  .recovery-mini { margin-top: 14px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; }
-  .recovery-mini-header {
-    padding: 8px 14px; background: #f3f4f6; border-bottom: 1px solid #e5e7eb;
-    font-size: 11px; font-weight: 700; color: #374151;
-  }
-  .recovery-row {
-    display: flex; align-items: center; gap: 12px; padding: 8px 14px;
-    border-bottom: 1px solid #f3f4f6; font-size: 12px;
-  }
-  .recovery-row:last-child { border-bottom: none; }
-  .recovery-vehicle { flex: 1; font-weight: 600; color: #111827; }
-  .recovery-offer { font-weight: 700; color: var(--at-green); font-variant-numeric: tabular-nums; }
-  .recovery-status { font-size: 11px; color: #9ca3af; }
-  .recovery-act {
-    font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px;
-    background: var(--at-green-bg); color: var(--at-green); border: 1px solid var(--at-green-border); cursor: pointer;
-  }
-
-  /* ── ROI IMPACT FOOTER ── */
-  .roi-impact-footer {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #312e81 100%);
-    border-radius: 14px; padding: 20px 28px; color: white;
-    display: flex; align-items: center; gap: 20px;
-    position: relative; overflow: hidden;
-  }
-  .roi-impact-footer::before {
-    content: ''; position: absolute; top: -40px; right: -40px;
-    width: 180px; height: 180px; background: rgba(200,16,46,0.08); border-radius: 50%;
-  }
-  .rif-title { font-size: 13px; font-weight: 700; color: #94a3b8; white-space: nowrap; position: relative; z-index: 1; }
-  .rif-title strong { font-size: 16px; color: white; display: block; margin-top: 4px; }
-  .rif-items { display: flex; gap: 16px; flex: 1; position: relative; z-index: 1; }
-  .rif-item { flex: 1; text-align: center; padding: 12px 8px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); }
-  .rif-val { font-size: 20px; font-weight: 800; color: #a78bfa; font-variant-numeric: tabular-nums; }
-  .rif-label { font-size: 10px; color: #94a3b8; margin-top: 2px; line-height: 1.3; }
-  .rif-total { position: relative; z-index: 1; text-align: center; min-width: 160px; background: rgba(34,197,94,0.1); border-radius: 10px; padding: 14px 20px; border: 1px solid rgba(34,197,94,0.2); }
-  .rif-total-label { font-size: 10px; color: #4ade80; text-transform: uppercase; letter-spacing: 0.6px; font-weight: 700; margin-bottom: 4px; }
-  .rif-total-val { font-size: 36px; font-weight: 900; color: #4ade80; font-variant-numeric: tabular-nums; }
-  .rif-total-sub { font-size: 10px; color: #64748b; margin-top: 2px; }
-
-  /* ── INSIGHT CALLOUT ── */
-  .insight-callout {
-    display: flex; align-items: center; gap: 10px;
-    padding: 10px 14px; border-radius: 8px; font-size: 12px; font-weight: 600;
-  }
-  .insight-callout.purple { background: #faf5ff; border: 1px solid #e9d5ff; color: #6b21a8; }
-  .insight-callout.green { background: var(--at-green-bg); border: 1px solid var(--at-green-border); color: #166534; }
-  .insight-callout.red { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
-  .insight-callout.amber { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
-  .insight-icon { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
-  .insight-callout.purple .insight-icon { background: #7c3aed; color: white; }
-  .insight-callout.green .insight-icon { background: var(--at-green); color: white; }
-  .insight-callout.red .insight-icon { background: #dc2626; color: white; }
-  .insight-callout.amber .insight-icon { background: #f59e0b; color: white; }
-
-  @media (max-width: 1200px) {
-    .roi-hero-strip { grid-template-columns: repeat(2,1fr); }
-    .two-col { grid-template-columns: 1fr; }
-    .acq-grid { grid-template-columns: 1fr 1fr; }
-    .partner-banner { flex-direction: column; gap: 16px; }
-    .partner-right { width: 100%; }
-    .trend-strip-grid { grid-template-columns: repeat(2,1fr); }
-  }
-</style>
-</head>
-<body>
-
-<!-- SIDEBAR -->
-<aside class="sidebar">
-  <div class="sidebar-logo">
-    AT<span class="sidebar-logo-text">AccuTrade</span>
-  </div>
-  <nav class="sidebar-nav">
-    <div class="nav-item active">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
-      <span class="nav-label">Board</span>
-    </div>
-    <div class="nav-item">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-      <span class="nav-label">Prospects</span>
-    </div>
-    <div class="nav-item">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
-      <span class="nav-label">Appraisals</span>
-    </div>
-    <div class="nav-item">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
-      <span class="nav-label">Auctions</span>
-    </div>
-    <div class="nav-item">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg>
-      <span class="nav-label">Settings</span>
-    </div>
-  </nav>
-  <div class="sidebar-health">
-    <div class="health-dot"></div>
-    <span class="health-label">Both integrations live</span>
-  </div>
+<aside class="lp" id="left-panel">
+<div class="lp-head"><div class="lp-title">Appraisals</div></div>
+<div class="lp-scroll">
+  <div class="sec-lbl">View</div>
+  <div class="pl on" onclick="lpClick(this)"><span class="lb">All Appraisals</span><span class="cnt">142</span></div>
+  <div class="pl" onclick="lpClick(this)"><span class="lb">Consumer Appraisals</span><span class="cnt">98</span></div>
+  <div class="pl" onclick="lpClick(this)"><span class="lb">Driveway Appraisals</span><span class="cnt">31</span></div>
+  <div class="pl" onclick="lpClick(this)"><span class="lb">Service Drive</span><span class="cnt">13</span></div>
+  <div class="lp-div"></div>
+  <div class="sec-lbl">Decision Status</div>
+  <div class="pl" onclick="lpClick(this)"><span class="lb">Offer Pending</span><span class="cnt">24</span></div>
+  <div class="pl" onclick="lpClick(this)"><span class="lb">Deal Sheet Open</span><span class="cnt">11</span></div>
+  <div class="pl" onclick="lpClick(this)"><span class="lb">Offer Accepted</span><span class="cnt">89</span></div>
+  <div class="pl" onclick="lpClick(this)"><span class="lb">Offer Declined</span><span class="cnt">29</span></div>
+  <div class="lp-div"></div>
+  <div class="sec-lbl">Quick Actions</div>
+  <div class="pl" onclick="showDealSheetModal()"><span class="lb">📋 Open Deal Sheet</span></div>
+  <div class="pl" onclick="alert('Launching new appraisal...')"><span class="lb">Run New Appraisal</span></div>
+  <div class="lp-div"></div>
+  <div class="sec-lbl">Reports</div>
+  <div class="pl" onclick="lpClick(this)"><span class="lb">Appraisal Summary</span></div>
+  <div class="pl" onclick="lpClick(this)"><span class="lb">Offer Analysis</span></div>
+</div>
 </aside>
 
 <!-- MAIN -->
@@ -1469,6 +756,190 @@
       rowCbs.forEach(cb => cb.checked = e.target.checked);
     });
   }
+</script>
+
+<script>
+// ── MAIN TAB SWITCHING ──
+function switchTab(tab) {
+  document.querySelectorAll('.ni').forEach(function(el){ el.classList.remove('on'); });
+  var nav = document.getElementById('nav-' + tab);
+  if(nav) nav.classList.add('on');
+  document.querySelectorAll('.view').forEach(function(el){ el.classList.remove('on'); });
+  var view = document.getElementById('view-' + tab);
+  if(view) view.classList.add('on');
+  var titles = {dashboard:'Dashboard',prospects:'Prospects',service:'Service Drive',inventory:'Inventory',appraisals:'Appraisals',reports:'Reports'};
+  var pt = document.getElementById('page-title');
+  if(pt) pt.textContent = titles[tab] || tab;
+  updateLeftPanel(tab);
+}
+
+// ── LEFT PANEL CONTENT MAP ──
+var LP = {
+  appraisals: { title:'Appraisals', sections:[
+    {label:'View', items:[{text:'All Appraisals',count:142,active:true},{text:'Consumer Appraisals',count:98},{text:'Driveway Appraisals',count:31},{text:'Service Drive',count:13}]},
+    {label:'Decision Status', items:[{text:'Offer Pending',count:24},{text:'Deal Sheet Open',count:11},{text:'Offer Accepted',count:89},{text:'Offer Declined',count:29}]},
+    {label:'Quick Actions', items:[{text:'📋 Open Deal Sheet',action:'showDealSheetModal()'},{text:'Run New Appraisal',action:"alert('Launching appraisal wizard...')"}]},
+    {label:'Reports', items:[{text:'Appraisal Summary'},{text:'Offer Analysis'}]}
+  ]},
+  dashboard: { title:'Dashboard', sections:[
+    {label:'Overview', items:[{text:'ROI Summary',active:true},{text:'Inventory Health'},{text:'Priority Actions'}]},
+    {label:'Period', items:[{text:'This Month',active:true},{text:'Last 30 Days'},{text:'Last 90 Days'},{text:'Year to Date'}]},
+    {label:'Quick Links', items:[{text:'📋 Open Deal Sheet',action:'showDealSheetModal()'},{text:'View All Appraisals',action:"switchTab('appraisals')"}]}
+  ]},
+  inventory: { title:'Inventory', sections:[
+    {label:'Status', items:[{text:'All Inventory',count:89,active:true},{text:'Online',count:70},{text:'Offline',count:19}]},
+    {label:'Age', items:[{text:'0–30 Days',count:41},{text:'31–60 Days',count:27},{text:'60+ Days',count:21}]},
+    {label:'Disposition', items:[{text:'Retail',count:70},{text:'Open',count:19}]},
+    {label:'Quick Actions', items:[{text:'Run New Appraisal',action:"alert('Launching appraisal wizard...')"},{text:'Export Inventory'}]}
+  ]},
+  prospects: { title:'Prospects', sections:[
+    {label:'Pipeline', items:[{text:'All Prospects',count:38,active:true},{text:'New Leads',count:12},{text:'In Progress',count:17},{text:'Offer Made',count:9}]},
+    {label:'Source', items:[{text:'Cars.com',count:22},{text:'Walk-In',count:11},{text:'Phone',count:5}]},
+    {label:'Quick Actions', items:[{text:'Add Prospect'},{text:'📋 Open Deal Sheet',action:'showDealSheetModal()'}]}
+  ]},
+  service: { title:'Service Drive', sections:[
+    {label:"Today", items:[{text:"Today's Appointments",count:14,active:true},{text:'Checked In',count:8},{text:'Awaiting Appraisal',count:3}]},
+    {label:'Quick Actions', items:[{text:'Run Appraisal',action:"alert('Launching appraisal wizard...')"},{text:'📋 Open Deal Sheet',action:'showDealSheetModal()'},{text:'Print Offer Card'}]}
+  ]},
+  reports: { title:'Reports', sections:[
+    {label:'Reports', items:[{text:'Appraisal Summary',active:true},{text:'Offer Analysis'},{text:'Acquisition Report'},{text:'Cars.com ROI'}]},
+    {label:'Period', items:[{text:'This Month',active:true},{text:'Last 30 Days'},{text:'Last Quarter'},{text:'Year to Date'}]}
+  ]}
+};
+
+function updateLeftPanel(tab) {
+  var lp = document.getElementById('left-panel');
+  if(!lp || !LP[tab]) return;
+  var d = LP[tab];
+  var h = '<div class="lp-head"><div class="lp-title">' + d.title + '</div></div><div class="lp-scroll">';
+  d.sections.forEach(function(s,si){
+    if(si>0) h += '<div class="lp-div"></div>';
+    h += '<div class="sec-lbl">' + s.label + '</div>';
+    s.items.forEach(function(item){
+      var cls = 'pl' + (item.active?' on':'');
+      var cnt = item.count !== undefined ? '<span class="cnt">'+item.count+'</span>' : '';
+      var action = item.action ? item.action : 'lpClick(this)';
+      h += '<div class="'+cls+'" onclick="'+action.replace(/"/g,"'")+'">'
+        + '<span class="lb">'+item.text+'</span>'+cnt+'</div>';
+    });
+  });
+  h += '</div>';
+  lp.innerHTML = h;
+}
+
+function lpClick(el) {
+  var siblings = el.closest('.lp-scroll') ? el.closest('.lp-scroll').querySelectorAll('.pl') : el.parentNode.querySelectorAll('.pl');
+  siblings.forEach(function(s){ s.classList.remove('on'); });
+  el.classList.add('on');
+}
+
+// ── DEAL SHEET MODAL ──
+function openDealSheetFromRow(row) {
+  var tds = row.querySelectorAll('td');
+  var vehicle = (tds[1] ? tds[1].querySelector('.vn') ? tds[1].querySelector('.vn').textContent : tds[1].textContent : '').trim();
+  var stock = (tds[2] ? tds[2].textContent : 'N/A').trim();
+  var offer = (tds[4] ? tds[4].textContent : '$0').trim();
+  showDealSheetModal(vehicle, stock, '', offer, '');
+}
+
+function showDealSheetModal(vehicle, vin, odo, offer, seller) {
+  var existing = document.getElementById('dsModal'); if(existing) existing.remove();
+  vehicle = vehicle || '2022 BMW 330i xDrive';
+  vin     = vin     || 'AN10227';
+  odo     = odo     || '28,450 mi';
+  offer   = offer   || '$39,750';
+  seller  = seller  || '—';
+  var offerNum = offer.replace(/[$,]/g,'');
+  var m = document.createElement('div');
+  m.id = 'dsModal';
+  m.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(3px);';
+  m.innerHTML = '<div style="background:#fff;border-radius:14px;width:520px;max-width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.3);">'
+    + '<div style="background:#1a1a2e;color:#fff;padding:18px 22px;border-radius:14px 14px 0 0;display:flex;justify-content:space-between;align-items:center;">'
+    +   '<div><div style="font-size:10px;opacity:.55;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:3px;">Deal Sheet</div>'
+    +   '<div style="font-size:17px;font-weight:700;">' + vehicle + '</div></div>'
+    +   '<button onclick="document.getElementById('dsModal').remove()" style="background:rgba(255,255,255,.12);border:none;color:#fff;width:30px;height:30px;border-radius:6px;cursor:pointer;font-size:18px;">×</button>'
+    + '</div>'
+    + '<div style="padding:20px 22px;">'
+    +   '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;">'
+    +     '<div style="background:#f8faff;border-radius:8px;padding:12px;"><div style="font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;margin-bottom:4px;">VIN / Stock</div><div style="font-size:13px;font-weight:600;font-family:monospace;">' + vin + '</div></div>'
+    +     '<div style="background:#f8faff;border-radius:8px;padding:12px;"><div style="font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;margin-bottom:4px;">Odometer</div><div style="font-size:13px;font-weight:600;">' + (odo||'—') + '</div></div>'
+    +     '<div style="background:#ecfdf5;border-radius:8px;padding:12px;grid-column:1/-1;"><div style="font-size:10px;font-weight:700;color:#059669;text-transform:uppercase;margin-bottom:4px;">AccuTrade Offer (ACV)</div><div style="font-size:26px;font-weight:800;color:#059669;">' + offer + '</div></div>'
+    +   '</div>'
+    +   '<div style="border-top:1px solid #f0f0f0;padding-top:16px;margin-bottom:16px;">'
+    +     '<div style="font-size:12px;font-weight:700;color:#374151;margin-bottom:10px;">Set Your Purchase Price</div>'
+    +     '<div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">'
+    +       '<span style="font-size:24px;font-weight:800;">$</span>'
+    +       '<input id="dsPriceInput" type="number" value="' + offerNum + '" style="font-size:24px;font-weight:800;border:2px solid #e5e7eb;border-radius:8px;padding:8px 12px;width:160px;outline:none;" onfocus="this.style.borderColor='#1d4ed8'" onblur="this.style.borderColor='#e5e7eb'">'
+    +       '<div style="flex:1;background:#f3f4f6;border-radius:6px;padding:8px 12px;font-size:12px;color:#6b7280;">AccuTrade ACV: <strong style="color:#111;">' + offer + '</strong></div>'
+    +     '</div>'
+    +     '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;">'
+    +       '<div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:6px;padding:10px;text-align:center;cursor:pointer;" onclick="document.getElementById('dsPriceInput').value=' + offerNum + '">'
+    +         '<div style="font-size:10px;font-weight:700;color:#15803d;text-transform:uppercase;">At ACV</div>'
+    +         '<div style="font-size:14px;font-weight:800;color:#15803d;">' + offer + '</div>'
+    +       '</div>'
+    +       '<div style="background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:6px;padding:10px;text-align:center;cursor:pointer;" onclick="document.getElementById('dsPriceInput').value=' + (parseInt(offerNum)-500) + '">'
+    +         '<div style="font-size:10px;font-weight:700;color:#1d4ed8;text-transform:uppercase;">−$500</div>'
+    +         '<div style="font-size:14px;font-weight:800;color:#1d4ed8;">
+</html>
+ + (parseInt(offerNum)-500).toLocaleString() + '</div>'
+    +       '</div>'
+    +       '<div style="background:#fef3c7;border:1.5px solid #fcd34d;border-radius:6px;padding:10px;text-align:center;cursor:pointer;" onclick="document.getElementById('dsPriceInput').value=' + (parseInt(offerNum)-1000) + '">'
+    +         '<div style="font-size:10px;font-weight:700;color:#d97706;text-transform:uppercase;">−$1,000</div>'
+    +         '<div style="font-size:14px;font-weight:800;color:#d97706;">
+</html>
+ + (parseInt(offerNum)-1000).toLocaleString() + '</div>'
+    +       '</div>'
+    +     '</div>'
+    +   '</div>'
+    +   '<div style="display:flex;gap:10px;">'
+    +     '<button onclick="alert('Offer submitted: 
+</html>
+ + document.getElementById('dsPriceInput').value + '\nVehicle: ' + vehicle.replace(/'/g,"\'") + ''); document.getElementById('dsModal').remove();" style="flex:1;background:#1d4ed8;color:#fff;border:none;border-radius:8px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;">✓ Submit Offer</button>'
+    +     '<button onclick="document.getElementById('dsModal').remove()" style="background:#f3f4f6;color:#374151;border:none;border-radius:8px;padding:13px 20px;font-size:14px;font-weight:600;cursor:pointer;">Cancel</button>'
+    +   '</div>'
+    + '</div></div>';
+  document.body.appendChild(m);
+  m.addEventListener('click', function(e){ if(e.target===m) m.remove(); });
+}
+
+document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ var m=document.getElementById('dsModal'); if(m) m.remove(); }});
+
+// ── SUB-TAB WIRING (run after DOM ready) ──
+document.addEventListener('DOMContentLoaded', function(){
+  // Pricing strategy tabs (.ptab)
+  document.querySelectorAll('.ptabs').forEach(function(ptabsEl){
+    var tabs = ptabsEl.querySelectorAll('.ptab');
+    var card = ptabsEl.closest('.card');
+    tabs.forEach(function(tab,idx){
+      tab.addEventListener('click', function(){
+        tabs.forEach(function(t){ t.classList.remove('on'); });
+        tab.classList.add('on');
+        if(card){
+          var cbs = card.querySelectorAll(':scope > .cb, :scope > div > .cb');
+          if(!cbs.length) cbs = card.querySelectorAll('.cb');
+          cbs.forEach(function(cb,ci){ cb.style.display = (ci===idx) ? '' : 'none'; });
+        }
+      });
+    });
+  });
+  // Price toggle tabs (.pti)
+  document.querySelectorAll('.ptgl').forEach(function(ptgl){
+    ptgl.querySelectorAll('.pti').forEach(function(tab){
+      tab.addEventListener('click', function(){
+        ptgl.querySelectorAll('.pti').forEach(function(t){ t.classList.remove('on'); });
+        tab.classList.add('on');
+      });
+    });
+  });
+  // Exit option clicks
+  document.querySelectorAll('.exit').forEach(function(el){
+    el.style.cursor = 'pointer';
+    el.addEventListener('click', function(){
+      document.querySelectorAll('.exit').forEach(function(e){ e.style.outline=''; });
+      el.style.outline = '2px solid var(--at-teal)';
+    });
+  });
+});
 </script>
 </body>
 </html>
