@@ -15,7 +15,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .nav-item svg{width:20px;height:20px}
 .nav-badge{position:absolute;top:6px;right:6px;background:#ef5350;color:#fff;font-size:9px;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center}
 .main-layout{display:flex;flex:1;overflow:hidden}
-.left-panel{width:260px;background:#fff;border-right:1px solid #e0e0e0;display:flex;flex-direction:column;flex-shrink:0;overflow:hidden}
+.left-panel{width:260px;background:#fff;border-right:1px solid #e0e0e0;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
 .lp-head{padding:14px 16px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between}
 .lp-head h3{font-size:13px;font-weight:700;color:#1a1a2e}
 .lp-section{padding:10px 14px;border-bottom:1px solid #f5f5f5}
@@ -24,14 +24,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .lp-stat-label{font-size:12px;color:#555}
 .lp-stat-value{font-size:13px;font-weight:700;color:#1a1a2e}
 .lp-stat-value.green{color:#2e7d32}.lp-stat-value.red{color:#c62828}.lp-stat-value.blue{color:#0d47a1}.lp-stat-value.orange{color:#e65100}
-.lp-item{padding:7px 10px;border-radius:8px;margin-bottom:3px;cursor:pointer;transition:background .15s;border-left:3px solid transparent}
+.lp-item{padding:7px 10px;border-radius:8px;margin-bottom:3px;cursor:pointer;border-left:3px solid transparent}
 .lp-item:hover{background:#f5f5f5}
 .lp-item.urgent{border-left-color:#ef5350;background:#fff5f5}
 .lp-item.warning{border-left-color:#fb8c00;background:#fff8f0}
 .lp-item.ok{border-left-color:#43a047;background:#f5fff5}
 .lp-item-title{font-size:12px;font-weight:600;color:#1a1a2e}
 .lp-item-sub{font-size:11px;color:#9e9e9e;margin-top:1px}
-.lp-scroll{overflow-y:auto;flex:1;padding:6px 8px}
 .content-area{flex:1;overflow-y:auto;padding:24px;background:#f0f2f5}
 .view-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px}
 .view-header h2{font-size:20px;font-weight:700;color:#1a1a2e}
@@ -54,7 +53,7 @@ th:hover{color:#0d47a1}td{padding:10px 14px;border-bottom:1px solid #f8f8f8;vert
 tr:hover td{background:#fafbff}
 .table-wrap{overflow-x:auto;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .badge{display:inline-block;padding:3px 8px;border-radius:6px;font-size:11px;font-weight:700}
-.bg{background:#e8f5e9;color:#2e7d32}.br{background:#ffebee;color:#c62828}.bb{background:#e3f2fd;color:#0d47a1}.bo{background:#fff3e0;color:#e65100}.bgy{background:#f5f5f5;color:#616161}.bp{background:#f3e5f5;color:#6a1b9a}
+.bg{background:#e8f5e9;color:#2e7d32}.br{background:#ffebee;color:#c62828}.bb{background:#e3f2fd;color:#0d47a1}.bo{background:#fff3e0;color:#e65100}.bgy{background:#f5f5f5;color:#616161}
 .sub-tabs{display:flex;gap:4px;margin-bottom:16px;border-bottom:2px solid #f0f0f0}
 .sub-tab{padding:8px 16px;border-radius:8px 8px 0 0;border:none;background:transparent;font-size:13px;font-weight:600;color:#9e9e9e;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s}
 .sub-tab:hover{color:#1a1a2e}.sub-tab.active{color:#0d47a1;border-bottom-color:#0d47a1;background:#e3f2fd22}
@@ -65,15 +64,14 @@ tr:hover td{background:#fafbff}
 .si{padding:6px 12px;border:1px solid #e0e0e0;border-radius:8px;font-size:12px;outline:none;width:200px}
 .si:focus{border-color:#0d47a1}
 select.fs{padding:6px 10px;border:1px solid #e0e0e0;border-radius:8px;font-size:12px;outline:none;background:#fff;color:#333;cursor:pointer}
-.hero{background:linear-gradient(135deg,#0d47a1 0%,#1565c0 50%,#0277bd 100%);border-radius:16px;padding:24px;color:#fff;margin-bottom:20px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:rgba(255,255,255,.05);border-radius:50%}
+.hero{background:linear-gradient(135deg,#0d47a1 0%,#1565c0 50%,#0277bd 100%);border-radius:16px;padding:24px;color:#fff;margin-bottom:20px;overflow:hidden}
 .hero-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .hm-value{font-size:28px;font-weight:800;margin-bottom:2px}
 .hm-label{font-size:11px;opacity:.8;font-weight:500}
 .hm-delta{font-size:12px;font-weight:600;color:#a5d6a7;margin-top:2px}
 .db-wrap{display:flex;align-items:center;gap:10px;margin:6px 0}
 .db-track{flex:1;height:8px;background:#f0f0f0;border-radius:4px;overflow:hidden}
-.db-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#0d47a1,#42a5f5);transition:width .6s}
+.db-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#0d47a1,#42a5f5)}
 .db-label{font-size:12px;font-weight:600;width:140px;color:#333;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .db-score{font-size:12px;font-weight:700;color:#0d47a1;width:28px;text-align:right}
 .fs-stage{display:flex;align-items:center;gap:12px;padding:10px;border-radius:8px;margin-bottom:6px;background:#f8f9ff}
@@ -89,8 +87,7 @@ select.fs{padding:6px 10px;border:1px solid #e0e0e0;border-radius:8px;font-size:
 .kb-card{background:#fff;border-radius:10px;padding:12px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.08);cursor:pointer;transition:box-shadow .2s;border-left:3px solid #ddd}
 .kb-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.12)}
 .kb-card.hot{border-left-color:#ef5350}.kb-card.warm{border-left-color:#fb8c00}.kb-card.cool{border-left-color:#42a5f5}.kb-card.done{border-left-color:#43a047}
-.kb-name{font-size:13px;font-weight:700;color:#1a1a2e}
-.kb-veh{font-size:11px;color:#9e9e9e;margin:2px 0}
+.kb-name{font-size:13px;font-weight:700;color:#1a1a2e}.kb-veh{font-size:11px;color:#9e9e9e;margin:2px 0}
 .kb-foot{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:999;align-items:center;justify-content:center}
 .modal-overlay.open{display:flex}
@@ -119,19 +116,14 @@ select.fs{padding:6px 10px;border:1px solid #e0e0e0;border-radius:8px;font-size:
 .cb-val{font-size:12px;font-weight:700;color:#1a1a2e;width:60px}
 .sec-title{font-size:15px;font-weight:700;color:#1a1a2e;margin-bottom:12px}
 .divider{height:1px;background:#f0f0f0;margin:14px 0}
-.flex{display:flex}.gap8{gap:8px}.gap12{gap:12px}.gap16{gap:16px}
-.ac{align-items:center}.jb{justify-content:space-between}
-.mt8{margin-top:8px}.mt16{margin-top:16px}.mt20{margin-top:20px}
-.mb8{margin-bottom:8px}.mb16{margin-bottom:16px}.mb20{margin-bottom:20px}
-.tsm{font-size:12px}.txs{font-size:11px}.tmuted{color:#9e9e9e}
-.bold{font-weight:700}.tgreen{color:#2e7d32}.tred{color:#c62828}.tblue{color:#0d47a1}.torange{color:#e65100}
-::-webkit-scrollbar{width:6px;height:6px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:#ddd;border-radius:3px}
+.flex{display:flex}.gap8{gap:8px}.ac{align-items:center}.jb{justify-content:space-between}
+.mt8{margin-top:8px}.mt16{margin-top:16px}.mb8{margin-bottom:8px}.mb16{margin-bottom:16px}.mb20{margin-bottom:20px}
+.tsm{font-size:12px}.txs{font-size:11px}.tmuted{color:#9e9e9e}.bold{font-weight:700}
+.tgreen{color:#2e7d32}.tred{color:#c62828}.tblue{color:#0d47a1}.torange{color:#e65100}
+::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#ddd;border-radius:3px}
 </style>
 </head>
 <body>
-
 <nav class="sidebar">
   <div class="sidebar-logo">AT</div>
   <button class="nav-item active" data-view="dashboard" onclick="switchView('dashboard')" title="Dashboard">
@@ -162,7 +154,6 @@ select.fs{padding:6px 10px;border:1px solid #e0e0e0;border-radius:8px;font-size:
 <div class="main-layout">
 <aside class="left-panel" id="leftPanel"></aside>
 <main class="content-area" id="contentArea">
-
 <!-- DASHBOARD -->
 <section class="view active" id="view-dashboard">
   <div class="hero">
@@ -178,7 +169,7 @@ select.fs{padding:6px 10px;border:1px solid #e0e0e0;border-radius:8px;font-size:
     </div>
   </div>
   <div class="card-grid g4 mb20">
-    <div class="kpi-card"><div class="kpi-label">Today's Appraisals</div><div class="kpi-value">12</div><div class="kpi-delta up">3 IO Opportunities flagged</div></div>
+    <div class="kpi-card"><div class="kpi-label">Appraisals Today</div><div class="kpi-value">12</div><div class="kpi-delta up">3 IO Opportunities flagged</div></div>
     <div class="kpi-card"><div class="kpi-label">Inventory Health</div><div class="kpi-value">76<span style="font-size:14px;font-weight:400;">/100</span></div><div class="kpi-delta up">↑ +4 pts this week</div></div>
     <div class="kpi-card"><div class="kpi-label">Active IO Leads</div><div class="kpi-value">34</div><div class="kpi-delta up">7 responded today</div></div>
     <div class="kpi-card"><div class="kpi-label">Offer Acceptance Rate</div><div class="kpi-value">68%</div><div class="kpi-delta up">↑ +5% vs last month</div></div>
@@ -208,7 +199,7 @@ select.fs{padding:6px 10px;border:1px solid #e0e0e0;border-radius:8px;font-size:
   <div class="card mb20">
     <div class="sec-title">📊 30-Day Acquisition Trend</div>
     <div style="display:flex;align-items:flex-end;gap:6px;height:80px;padding-top:12px">
-      <div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:41%;cursor:default;" title="Day 1: 9 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:32%;cursor:default;" title="Day 2: 7 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:50%;cursor:default;" title="Day 3: 11 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:36%;cursor:default;" title="Day 4: 8 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:59%;cursor:default;" title="Day 5: 13 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:45%;cursor:default;" title="Day 6: 10 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:64%;cursor:default;" title="Day 7: 14 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:55%;cursor:default;" title="Day 8: 12 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:68%;cursor:default;" title="Day 9: 15 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:50%;cursor:default;" title="Day 10: 11 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:41%;cursor:default;" title="Day 11: 9 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:59%;cursor:default;" title="Day 12: 13 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:73%;cursor:default;" title="Day 13: 16 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:64%;cursor:default;" title="Day 14: 14 acquired"></div><div style="flex:1;background:#0d47a1;border-radius:3px 3px 0 0;height:82%;cursor:default;" title="Day 15: 18 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:55%;cursor:default;" title="Day 16: 12 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:68%;cursor:default;" title="Day 17: 15 acquired"></div><div style="flex:1;background:#0d47a1;border-radius:3px 3px 0 0;height:77%;cursor:default;" title="Day 18: 17 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:59%;cursor:default;" title="Day 19: 13 acquired"></div><div style="flex:1;background:#0d47a1;border-radius:3px 3px 0 0;height:86%;cursor:default;" title="Day 20: 19 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:64%;cursor:default;" title="Day 21: 14 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:73%;cursor:default;" title="Day 22: 16 acquired"></div><div style="flex:1;background:#0d47a1;border-radius:3px 3px 0 0;height:91%;cursor:default;" title="Day 23: 20 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:68%;cursor:default;" title="Day 24: 15 acquired"></div><div style="flex:1;background:#0d47a1;border-radius:3px 3px 0 0;height:82%;cursor:default;" title="Day 25: 18 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:73%;cursor:default;" title="Day 26: 16 acquired"></div><div style="flex:1;background:#0d47a1;border-radius:3px 3px 0 0;height:100%;cursor:default;" title="Day 27: 22 acquired"></div><div style="flex:1;background:#0d47a1;border-radius:3px 3px 0 0;height:86%;cursor:default;" title="Day 28: 19 acquired"></div><div style="flex:1;background:#0d47a1;border-radius:3px 3px 0 0;height:95%;cursor:default;" title="Day 29: 21 acquired"></div><div style="flex:1;background:#0d47a1;border-radius:3px 3px 0 0;height:82%;cursor:default;" title="Day 30: 18 acquired"></div>
+      <div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:41%;" title="Day 1: 9 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:32%;" title="Day 2: 7 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:50%;" title="Day 3: 11 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:36%;" title="Day 4: 8 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:59%;" title="Day 5: 13 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:45%;" title="Day 6: 10 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:64%;" title="Day 7: 14 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:55%;" title="Day 8: 12 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:68%;" title="Day 9: 15 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:50%;" title="Day 10: 11 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:41%;" title="Day 11: 9 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:59%;" title="Day 12: 13 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:73%;" title="Day 13: 16 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:64%;" title="Day 14: 14 acquired"></div><div style="flex:1;background:#0d47a1;border-radius:3px 3px 0 0;height:82%;" title="Day 15: 18 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:55%;" title="Day 16: 12 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:68%;" title="Day 17: 15 acquired"></div><div style="flex:1;background:#0d47a1;border-radius:3px 3px 0 0;height:77%;" title="Day 18: 17 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:59%;" title="Day 19: 13 acquired"></div><div style="flex:1;background:#0d47a1;border-radius:3px 3px 0 0;height:86%;" title="Day 20: 19 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:64%;" title="Day 21: 14 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:73%;" title="Day 22: 16 acquired"></div><div style="flex:1;background:#0d47a1;border-radius:3px 3px 0 0;height:91%;" title="Day 23: 20 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:68%;" title="Day 24: 15 acquired"></div><div style="flex:1;background:#0d47a1;border-radius:3px 3px 0 0;height:82%;" title="Day 25: 18 acquired"></div><div style="flex:1;background:#90caf9;border-radius:3px 3px 0 0;height:73%;" title="Day 26: 16 acquired"></div><div style="flex:1;background:#0d47a1;border-radius:3px 3px 0 0;height:100%;" title="Day 27: 22 acquired"></div><div style="flex:1;background:#0d47a1;border-radius:3px 3px 0 0;height:86%;" title="Day 28: 19 acquired"></div><div style="flex:1;background:#0d47a1;border-radius:3px 3px 0 0;height:95%;" title="Day 29: 21 acquired"></div><div style="flex:1;background:#0d47a1;border-radius:3px 3px 0 0;height:82%;" title="Day 30: 18 acquired"></div>
     </div>
     <div class="flex jb mt8 txs tmuted"><span>Mar 1</span><span>Mar 10</span><span>Mar 20</span><span>Mar 31</span></div>
   </div>
@@ -216,12 +207,11 @@ select.fs{padding:6px 10px;border:1px solid #e0e0e0;border-radius:8px;font-size:
     <div>
       <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#0d47a1;letter-spacing:.5px;">AccuTrade × Cars.com</div>
       <div style="font-size:16px;font-weight:800;color:#1a1a2e;margin:4px 0;">Your competitive advantage in used vehicle acquisition</div>
-      <div style="font-size:12px;color:#555;">Real-time market data + AccuTrade precision = higher acquisition confidence, faster turns, and better margin.</div>
+      <div style="font-size:12px;color:#555;">Real-time market data + AccuTrade precision = higher acquisition confidence, faster turns, better margin.</div>
     </div>
     <button class="btn btn-primary" onclick="switchView('appraisals')">View Appraisals →</button>
   </div>
 </section>
-
 <!-- APPRAISALS -->
 <section class="view" id="view-appraisals">
   <div class="view-header">
@@ -233,7 +223,6 @@ select.fs{padding:6px 10px;border:1px solid #e0e0e0;border-radius:8px;font-size:
     <button class="sub-tab" onclick="switchSub('appraisals','live')">Live Context</button>
     <button class="sub-tab" onclick="switchSub('appraisals','io')">IO Leads</button>
   </div>
-  <!-- ALL -->
   <div class="sub-view active" id="sub-appraisals-all">
     <div class="card-grid g4 mb16">
       <div class="kpi-card"><div class="kpi-label">Total This Month</div><div class="kpi-value">89</div><div class="kpi-delta up">+11 vs last month</div></div>
@@ -257,7 +246,6 @@ select.fs{padding:6px 10px;border:1px solid #e0e0e0;border-radius:8px;font-size:
       </tr></thead><tbody id="apprBody"></tbody></table></div>
     </div>
   </div>
-  <!-- LIVE -->
   <div class="sub-view" id="sub-appraisals-live">
     <div class="card-grid g3 mb16">
       <div class="card" style="text-align:center;">
@@ -297,7 +285,6 @@ select.fs{padding:6px 10px;border:1px solid #e0e0e0;border-radius:8px;font-size:
       <div class="table-wrap"><table><thead><tr><th>Customer</th><th>Vehicle</th><th>Miles</th><th>AT Offer</th><th>MMR</th><th>Demand</th><th>Rec.</th></tr></thead><tbody id="liveBody"></tbody></table></div>
     </div>
   </div>
-  <!-- IO LEADS -->
   <div class="sub-view" id="sub-appraisals-io">
     <div class="card mb16">
       <div class="sec-title">🔁 IO Lead Funnel — This Month</div>
@@ -326,7 +313,6 @@ select.fs{padding:6px 10px;border:1px solid #e0e0e0;border-radius:8px;font-size:
     </div>
   </div>
 </section>
-
 <!-- INVENTORY -->
 <section class="view" id="view-inventory">
   <div class="view-header">
@@ -390,25 +376,12 @@ select.fs{padding:6px 10px;border:1px solid #e0e0e0;border-radius:8px;font-size:
   <div class="card">
     <div class="flex jb ac mb12"><div class="sec-title" style="margin-bottom:0;">🎯 Acquisition Opportunities — Inventory Gaps</div><span class="badge bb">Based on Cars.com Demand</span></div>
     <div class="card-grid g3" style="gap:12px">
-      <div class="card" style="background:#f8f9ff;padding:14px;border:1px solid #e3f2fd;">
-        <div style="font-size:13px;font-weight:700;">Toyota RAV4 (2021-23)</div><div class="txs tmuted">Demand: 94 | You have: 3 units</div>
-        <div class="txs tgreen bold mt8">🟢 Restock Target: 8 units</div>
-        <button class="btn btn-primary btn-sm mt8" onclick="switchView('appraisals')">Find via IO Leads</button>
-      </div>
-      <div class="card" style="background:#f8f9ff;padding:14px;border:1px solid #e3f2fd;">
-        <div style="font-size:13px;font-weight:700;">Honda CR-V (2020-22)</div><div class="txs tmuted">Demand: 89 | You have: 2 units</div>
-        <div class="txs tgreen bold mt8">🟢 Restock Target: 6 units</div>
-        <button class="btn btn-primary btn-sm mt8" onclick="switchView('appraisals')">Find via IO Leads</button>
-      </div>
-      <div class="card" style="background:#f8f9ff;padding:14px;border:1px solid #e3f2fd;">
-        <div style="font-size:13px;font-weight:700;">Ford F-150 (2022-24)</div><div class="txs tmuted">Demand: 87 | You have: 5 units</div>
-        <div class="txs torange bold mt8">🟡 Monitor — near target</div>
-        <button class="btn btn-primary btn-sm mt8" onclick="switchView('appraisals')">Find via IO Leads</button>
-      </div>
+      <div class="card" style="background:#f8f9ff;padding:14px;border:1px solid #e3f2fd;"><div style="font-size:13px;font-weight:700;">Toyota RAV4 (2021-23)</div><div class="txs tmuted">Demand: 94 | You have: 3 units</div><div class="txs tgreen bold mt8">🟢 Restock Target: 8 units</div><button class="btn btn-primary btn-sm mt8" onclick="switchView('appraisals')">Find via IO Leads</button></div>
+      <div class="card" style="background:#f8f9ff;padding:14px;border:1px solid #e3f2fd;"><div style="font-size:13px;font-weight:700;">Honda CR-V (2020-22)</div><div class="txs tmuted">Demand: 89 | You have: 2 units</div><div class="txs tgreen bold mt8">🟢 Restock Target: 6 units</div><button class="btn btn-primary btn-sm mt8" onclick="switchView('appraisals')">Find via IO Leads</button></div>
+      <div class="card" style="background:#f8f9ff;padding:14px;border:1px solid #e3f2fd;"><div style="font-size:13px;font-weight:700;">Ford F-150 (2022-24)</div><div class="txs tmuted">Demand: 87 | You have: 5 units</div><div class="txs torange bold mt8">🟡 Monitor — near target</div><button class="btn btn-primary btn-sm mt8" onclick="switchView('appraisals')">Find via IO Leads</button></div>
     </div>
   </div>
 </section>
-
 <!-- PROSPECTS -->
 <section class="view" id="view-prospects">
   <div class="view-header"><div><h2>Prospects Pipeline</h2><p>IO Lead pipeline and customer acquisition tracking</p></div><button class="btn btn-primary">+ Add Prospect</button></div>
@@ -420,19 +393,18 @@ select.fs{padding:6px 10px;border:1px solid #e0e0e0;border-radius:8px;font-size:
   </div>
   <div class="kanban-board" id="kanbanBoard"></div>
 </section>
-
 <!-- SERVICE DRIVE -->
 <section class="view" id="view-service">
-  <div class="view-header"><div><h2>Service Drive</h2><p>Today's appointments with IO opportunity flags</p></div><button class="btn btn-primary">+ Log Appraisal</button></div>
+  <div class="view-header"><div><h2>Service Drive</h2><p>Appointments with IO opportunity flags</p></div><button class="btn btn-primary">+ Log Appraisal</button></div>
   <div class="card-grid g4 mb20">
-    <div class="kpi-card"><div class="kpi-label">Today's Appointments</div><div class="kpi-value">18</div><div class="kpi-delta up">3 IO flagged</div></div>
+    <div class="kpi-card"><div class="kpi-label">Appointments Today</div><div class="kpi-value">18</div><div class="kpi-delta up">3 IO flagged</div></div>
     <div class="kpi-card"><div class="kpi-label">Checked In</div><div class="kpi-value">11</div><div class="kpi-delta up">61% of day</div></div>
-    <div class="kpi-card"><div class="kpi-label">Appraisals Completed</div><div class="kpi-value">6</div><div class="kpi-delta up">from today's drive</div></div>
+    <div class="kpi-card"><div class="kpi-label">Appraisals Completed</div><div class="kpi-value">6</div><div class="kpi-delta up">from today</div></div>
     <div class="kpi-card"><div class="kpi-label">Vehicles Acquired</div><div class="kpi-value">2</div><div class="kpi-delta up">service → inventory</div></div>
   </div>
   <div class="card">
     <div class="flex jb ac mb16">
-      <div class="sec-title" style="margin-bottom:0;">Today's Service Appointments</div>
+      <div class="sec-title" style="margin-bottom:0;">Service Appointments</div>
       <div class="flex gap8">
         <span class="fp active" onclick="filterSvc('all',this)">All</span>
         <span class="fp" onclick="filterSvc('io',this)">IO Flagged</span>
@@ -442,10 +414,9 @@ select.fs{padding:6px 10px;border:1px solid #e0e0e0;border-radius:8px;font-size:
     <div class="table-wrap"><table><thead><tr><th>Time</th><th>Customer</th><th>Vehicle</th><th>Service</th><th>IO Flag</th><th>AT Offer</th><th>Status</th><th>Action</th></tr></thead><tbody id="svcBody"></tbody></table></div>
   </div>
 </section>
-
 <!-- REPORTS -->
 <section class="view" id="view-reports">
-  <div class="view-header"><div><h2>Reports &amp; Analytics</h2><p>Appraisal performance, acquisition analytics, and ROI analysis</p></div><button class="btn btn-secondary">Export PDF</button></div>
+  <div class="view-header"><div><h2>Reports &amp; Analytics</h2><p>Appraisal performance, acquisition analytics, and ROI</p></div><button class="btn btn-secondary">Export PDF</button></div>
   <div class="sub-tabs">
     <button class="sub-tab active" onclick="switchSub('reports','summary')">Appraisal Summary</button>
     <button class="sub-tab" onclick="switchSub('reports','acquisition')">Acquisition Report</button>
@@ -513,12 +484,11 @@ select.fs{padding:6px 10px;border:1px solid #e0e0e0;border-radius:8px;font-size:
         <div class="cb-row"><div class="cb-name">Accepted</div><div class="cb-track"><div class="cb-fill" style="width:61%;background:#2e7d32;">54</div></div><div class="cb-val tgreen">54</div></div>
         <div class="cb-row"><div class="cb-name">Countered</div><div class="cb-track"><div class="cb-fill" style="width:20%;background:#fb8c00;">18</div></div><div class="cb-val torange">18</div></div>
         <div class="cb-row"><div class="cb-name">Declined</div><div class="cb-track"><div class="cb-fill" style="width:11%;background:#c62828;">10</div></div><div class="cb-val tred">10</div></div>
-        <div class="cb-row"><div class="cb-name">Expired</div><div class="cb-track"><div class="cb-fill" style="width:8%;background:#9e9e9e;">7</div></div><div class="cb-val" style="color:#9e9e9e">7</div></div>
+        <div class="cb-row"><div class="cb-name">Expired</div><div class="cb-track"><div class="cb-fill" style="width:8%;background:#9e9e9e;">7</div></div><div class="cb-val">7</div></div>
       </div>
     </div>
   </div>
 </section>
-
 <!-- DEAL SHEET MODAL -->
 <div class="modal-overlay" id="dealModal">
   <div class="modal">
@@ -527,410 +497,361 @@ select.fs{padding:6px 10px;border:1px solid #e0e0e0;border-radius:8px;font-size:
   </div>
 </div>
 </main></div>
-
 <script>
-// ===== DATA =====
-const APPR = [
-  {id:1,name:'Sarah Mitchell',vehicle:'Toyota RAV4',year:2022,miles:34200,offer:28400,mmr:28900,demand:94,source:'IO Lead',status:'Buy',recon:800,vin:'1T3ZF4DV8NJ001234',days:14,phone:'(312)555-0101'},
-  {id:2,name:'James Kowalski',vehicle:'Honda CR-V',year:2021,miles:41500,offer:24100,mmr:24600,demand:89,source:'IO Lead',status:'Buy',recon:600,vin:'2HKRW2H85MH501234',days:12,phone:'(312)555-0102'},
-  {id:3,name:'Maria Gonzalez',vehicle:'Ford F-150',year:2023,miles:18900,offer:38200,mmr:37800,demand:87,source:'Trade-In',status:'Hold',recon:1200,vin:'1FTEW1EP4NFA01234',days:8,phone:'(312)555-0103'},
-  {id:4,name:'David Chen',vehicle:'Chevy Silverado',year:2022,miles:27300,offer:34500,mmr:35100,demand:82,source:'Service Drive',status:'Buy',recon:900,vin:'3GCUYDED4NG101234',days:16,phone:'(312)555-0104'},
-  {id:5,name:'Linda Park',vehicle:'Subaru Outback',year:2021,miles:38100,offer:21800,mmr:22400,demand:74,source:'IO Lead',status:'Buy',recon:700,vin:'4S4BTAFC4M3101234',days:11,phone:'(312)555-0105'},
-  {id:6,name:'Robert Torres',vehicle:'Jeep Grand Cherokee',year:2020,miles:52000,offer:26300,mmr:26800,demand:78,source:'Walk-In',status:'Pass',recon:2100,vin:'1C4RJFBG4LC101234',days:5,phone:'(312)555-0106'},
-  {id:7,name:'Emily Watson',vehicle:'Honda Accord',year:2022,miles:22400,offer:19700,mmr:20100,demand:65,source:'IO Lead',status:'Acquired',recon:500,vin:'1HGCV1F34NA101234',days:21,phone:'(312)555-0107'},
-  {id:8,name:'Kevin Murphy',vehicle:'Toyota Camry',year:2021,miles:44800,offer:17900,mmr:18400,demand:68,source:'Service Drive',status:'Buy',recon:650,vin:'4T1C11AK5MU101234',days:9,phone:'(312)555-0108'},
-  {id:9,name:'Angela Foster',vehicle:'Ford Explorer',year:2022,miles:31600,offer:29100,mmr:29600,demand:71,source:'IO Lead',status:'Hold',recon:1000,vin:'1FMSK8DH9NGB01234',days:7,phone:'(312)555-0109'},
-  {id:10,name:'Marcus Williams',vehicle:'Hyundai Tucson',year:2023,miles:14200,offer:25800,mmr:26200,demand:72,source:'IO Lead',status:'Buy',recon:400,vin:'5NMJB3AE4NH101234',days:3,phone:'(312)555-0110'}
+const APPR=[
+  {id:1,name:"Sarah Mitchell",vehicle:"Toyota RAV4",year:2022,miles:34200,offer:28400,mmr:28900,demand:94,source:"IO Lead",status:"Buy",recon:800,vin:"1T3ZF4DV8NJ001234",phone:"(312)555-0101"},
+  {id:2,name:"James Kowalski",vehicle:"Honda CR-V",year:2021,miles:41500,offer:24100,mmr:24600,demand:89,source:"IO Lead",status:"Buy",recon:600,vin:"2HKRW2H85MH501234",phone:"(312)555-0102"},
+  {id:3,name:"Maria Gonzalez",vehicle:"Ford F-150",year:2023,miles:18900,offer:38200,mmr:37800,demand:87,source:"Trade-In",status:"Hold",recon:1200,vin:"1FTEW1EP4NFA01234",phone:"(312)555-0103"},
+  {id:4,name:"David Chen",vehicle:"Chevy Silverado",year:2022,miles:27300,offer:34500,mmr:35100,demand:82,source:"Service Drive",status:"Buy",recon:900,vin:"3GCUYDED4NG101234",phone:"(312)555-0104"},
+  {id:5,name:"Linda Park",vehicle:"Subaru Outback",year:2021,miles:38100,offer:21800,mmr:22400,demand:74,source:"IO Lead",status:"Buy",recon:700,vin:"4S4BTAFC4M3101234",phone:"(312)555-0105"},
+  {id:6,name:"Robert Torres",vehicle:"Jeep Grand Cherokee",year:2020,miles:52000,offer:26300,mmr:26800,demand:78,source:"Walk-In",status:"Pass",recon:2100,vin:"1C4RJFBG4LC101234",phone:"(312)555-0106"},
+  {id:7,name:"Emily Watson",vehicle:"Honda Accord",year:2022,miles:22400,offer:19700,mmr:20100,demand:65,source:"IO Lead",status:"Acquired",recon:500,vin:"1HGCV1F34NA101234",phone:"(312)555-0107"},
+  {id:8,name:"Kevin Murphy",vehicle:"Toyota Camry",year:2021,miles:44800,offer:17900,mmr:18400,demand:68,source:"Service Drive",status:"Buy",recon:650,vin:"4T1C11AK5MU101234",phone:"(312)555-0108"},
+  {id:9,name:"Angela Foster",vehicle:"Ford Explorer",year:2022,miles:31600,offer:29100,mmr:29600,demand:71,source:"IO Lead",status:"Hold",recon:1000,vin:"1FMSK8DH9NGB01234",phone:"(312)555-0109"},
+  {id:10,name:"Marcus Williams",vehicle:"Hyundai Tucson",year:2023,miles:14200,offer:25800,mmr:26200,demand:72,source:"IO Lead",status:"Buy",recon:400,vin:"5NMJB3AE4NH101234",phone:"(312)555-0110"}
 ];
-const INV = [
-  {vin:'1T3ZF4DV8NJ001',vehicle:'2022 Toyota RAV4',days:12,price:31900,mmr:28900,demand:94,badge:'Great Value',status:'optimal',sold:false},
-  {vin:'2HKRW2H85MH502',vehicle:'2021 Honda CR-V',days:28,price:26800,mmr:24600,demand:89,badge:'Good Value',status:'optimal',sold:false},
-  {vin:'1FTEW1EP4NFA03',vehicle:'2023 Ford F-150',days:7,price:42500,mmr:37800,demand:87,badge:'Fair Price',status:'watch',sold:false},
-  {vin:'3GCUYDED4NG104',vehicle:'2022 Chevy Silverado',days:41,price:38900,mmr:35100,demand:82,badge:'Good Value',status:'action',sold:false},
-  {vin:'4S4BTAFC4M3105',vehicle:'2021 Subaru Outback',days:65,price:24500,mmr:22400,demand:74,badge:'High Price',status:'aged',sold:false},
-  {vin:'1HGCV1F34NA106',vehicle:'2022 Honda Accord',days:19,price:22400,mmr:20100,demand:65,badge:'Great Value',status:'optimal',sold:false},
-  {vin:'4T1C11AK5MU107',vehicle:'2021 Toyota Camry',days:72,price:20100,mmr:18400,demand:68,badge:'High Price',status:'aged',sold:false},
-  {vin:'5NMJB3AE4NH108',vehicle:'2023 Hyundai Tucson',days:5,price:28200,mmr:26200,demand:72,badge:'Good Value',status:'optimal',sold:false}
+const INV=[
+  {vin:"1T3ZF4DV8NJ001",vehicle:"2022 Toyota RAV4",days:12,price:31900,mmr:28900,demand:94,badge:"Great Value",status:"optimal"},
+  {vin:"2HKRW2H85MH502",vehicle:"2021 Honda CR-V",days:28,price:26800,mmr:24600,demand:89,badge:"Good Value",status:"optimal"},
+  {vin:"1FTEW1EP4NFA03",vehicle:"2023 Ford F-150",days:7,price:42500,mmr:37800,demand:87,badge:"Fair Price",status:"watch"},
+  {vin:"3GCUYDED4NG104",vehicle:"2022 Chevy Silverado",days:41,price:38900,mmr:35100,demand:82,badge:"Good Value",status:"action"},
+  {vin:"4S4BTAFC4M3105",vehicle:"2021 Subaru Outback",days:65,price:24500,mmr:22400,demand:74,badge:"High Price",status:"aged"},
+  {vin:"1HGCV1F34NA106",vehicle:"2022 Honda Accord",days:19,price:22400,mmr:20100,demand:65,badge:"Great Value",status:"optimal"},
+  {vin:"4T1C11AK5MU107",vehicle:"2021 Toyota Camry",days:72,price:20100,mmr:18400,demand:68,badge:"High Price",status:"aged"},
+  {vin:"5NMJB3AE4NH108",vehicle:"2023 Hyundai Tucson",days:5,price:28200,mmr:26200,demand:72,badge:"Good Value",status:"optimal"}
 ];
-const SVC = [
-  {time:'8:00 AM',name:'Tom Bradley',vehicle:'2019 Toyota RAV4',service:'Oil Change',io:true,offer:'$21,400',status:'Checked In',appraised:false},
-  {time:'8:30 AM',name:'Susan Lee',vehicle:'2020 Honda CR-V',service:'Brake Service',io:true,offer:'$19,800',status:'In Bay',appraised:true},
-  {time:'9:00 AM',name:'Frank Rivera',vehicle:'2018 Ford F-150',service:'Transmission',io:false,offer:null,status:'Waiting',appraised:false},
-  {time:'9:30 AM',name:'Carol White',vehicle:'2021 Chevy Equinox',service:'30K Service',io:true,offer:'$23,100',status:'Checked In',appraised:false},
-  {time:'10:00 AM',name:'Bill Johnson',vehicle:'2017 Dodge Ram',service:'A/C Repair',io:false,offer:null,status:'Scheduled',appraised:false},
-  {time:'10:30 AM',name:'Nancy Kim',vehicle:'2020 Subaru Forester',service:'Oil Change',io:false,offer:null,status:'Scheduled',appraised:false},
-  {time:'11:00 AM',name:'Gary Davis',vehicle:'2019 Honda Accord',service:'Alignment',io:false,offer:null,status:'Scheduled',appraised:false},
-  {time:'2:00 PM',name:'Patricia Moore',vehicle:'2022 Toyota Corolla',service:'Oil Change',io:false,offer:null,status:'Scheduled',appraised:false}
+const SVC=[
+  {time:"8:00 AM",name:"Tom Bradley",vehicle:"2019 Toyota RAV4",service:"Oil Change",io:true,offer:"$21,400",status:"Checked In",appraised:false},
+  {time:"8:30 AM",name:"Susan Lee",vehicle:"2020 Honda CR-V",service:"Brake Service",io:true,offer:"$19,800",status:"In Bay",appraised:true},
+  {time:"9:00 AM",name:"Frank Rivera",vehicle:"2018 Ford F-150",service:"Transmission",io:false,offer:null,status:"Waiting",appraised:false},
+  {time:"9:30 AM",name:"Carol White",vehicle:"2021 Chevy Equinox",service:"30K Service",io:true,offer:"$23,100",status:"Checked In",appraised:false},
+  {time:"10:00 AM",name:"Bill Johnson",vehicle:"2017 Dodge Ram",service:"A/C Repair",io:false,offer:null,status:"Scheduled",appraised:false},
+  {time:"10:30 AM",name:"Nancy Kim",vehicle:"2020 Subaru Forester",service:"Oil Change",io:false,offer:null,status:"Scheduled",appraised:false},
+  {time:"11:00 AM",name:"Gary Davis",vehicle:"2019 Honda Accord",service:"Alignment",io:false,offer:null,status:"Scheduled",appraised:false},
+  {time:"2:00 PM",name:"Patricia Moore",vehicle:"2022 Toyota Corolla",service:"Oil Change",io:false,offer:null,status:"Scheduled",appraised:false}
 ];
-const KANBAN_DATA = {
-  'New Leads':[
-    {name:'Alex Turner',vehicle:'2021 Toyota RAV4',offer:'$27,400',heat:'hot',sub:'IO Lead • 2h ago'},
-    {name:'Diana Reeves',vehicle:'2020 Honda Pilot',offer:'$24,200',heat:'warm',sub:'IO Lead • 4h ago'},
-    {name:'Chris Evans',vehicle:'2022 Chevy Tahoe',offer:'$41,800',heat:'hot',sub:'IO Lead • 1h ago'}
+const KB={
+  "New Leads":[
+    {name:"Alex Turner",vehicle:"2021 Toyota RAV4",offer:"$27,400",heat:"hot",sub:"IO Lead • 2h ago"},
+    {name:"Diana Reeves",vehicle:"2020 Honda Pilot",offer:"$24,200",heat:"warm",sub:"IO Lead • 4h ago"},
+    {name:"Chris Evans",vehicle:"2022 Chevy Tahoe",offer:"$41,800",heat:"hot",sub:"IO Lead • 1h ago"}
   ],
-  'In Progress':[
-    {name:'Jennifer Walsh',vehicle:'2021 Ford Explorer',offer:'$29,100',heat:'warm',sub:'Appt set • Tomorrow 10am'},
-    {name:'Mike Stanton',vehicle:'2019 Toyota Camry',offer:'$17,200',heat:'cool',sub:'Follow-up needed'}
+  "In Progress":[
+    {name:"Jennifer Walsh",vehicle:"2021 Ford Explorer",offer:"$29,100",heat:"warm",sub:"Appt set • Tomorrow 10am"},
+    {name:"Mike Stanton",vehicle:"2019 Toyota Camry",offer:"$17,200",heat:"cool",sub:"Follow-up needed"}
   ],
-  'Offer Made':[
-    {name:'Rachel Green',vehicle:'2022 Honda CR-V',offer:'$25,800',heat:'warm',sub:'Offer sent 2d ago'},
-    {name:'Steve Rogers',vehicle:'2023 Ford F-150',offer:'$39,400',heat:'hot',sub:'Counter received'},
-    {name:'Lisa Chen',vehicle:'2020 Subaru Outback',offer:'$21,600',heat:'cool',sub:'Awaiting response'}
+  "Offer Made":[
+    {name:"Rachel Green",vehicle:"2022 Honda CR-V",offer:"$25,800",heat:"warm",sub:"Offer sent 2d ago"},
+    {name:"Steve Rogers",vehicle:"2023 Ford F-150",offer:"$39,400",heat:"hot",sub:"Counter received"},
+    {name:"Lisa Chen",vehicle:"2020 Subaru Outback",offer:"$21,600",heat:"cool",sub:"Awaiting response"}
   ],
-  'Acquired':[
-    {name:'Tom Harris',vehicle:'2021 RAV4',offer:'$28,100',heat:'done',sub:'Acquired • Today'},
-    {name:'Jane Park',vehicle:'2022 CR-V',offer:'$24,600',heat:'done',sub:'Acquired • Yesterday'}
+  "Acquired":[
+    {name:"Tom Harris",vehicle:"2021 RAV4",offer:"$28,100",heat:"done",sub:"Acquired • Today"},
+    {name:"Jane Park",vehicle:"2022 CR-V",offer:"$24,600",heat:"done",sub:"Acquired • Yesterday"}
   ]
 };
-const IO_LEADS = [
-  {name:'Brian Scott',offer:'$22,400',vehicle:'2020 Toyota Camry',sent:'3 days ago',status:'No Response'},
-  {name:'Kim Nguyen',offer:'$18,900',vehicle:'2019 Honda Civic',sent:'2 days ago',status:'Opened'},
-  {name:'Paul Martin',offer:'$31,200',vehicle:'2021 Ford Explorer',sent:'5 days ago',status:'No Response'},
-  {name:'Amy Johnson',offer:'$26,800',vehicle:'2020 Honda CR-V',sent:'1 day ago',status:'Responded'},
-  {name:'Dan Wilson',offer:'$19,100',vehicle:'2018 Toyota Corolla',sent:'4 days ago',status:'No Response'},
-  {name:'Sara Davis',offer:'$34,700',vehicle:'2022 Chevy Silverado',sent:'2 days ago',status:'Opened'},
-  {name:'John Brown',offer:'$28,300',vehicle:'2021 Subaru Outback',sent:'6 days ago',status:'No Response'},
-  {name:'Mia Taylor',offer:'$23,500',vehicle:'2020 Jeep Cherokee',sent:'3 days ago',status:'No Response'}
+const IO_LEADS=[
+  {name:"Brian Scott",offer:"$22,400",vehicle:"2020 Toyota Camry",sent:"3 days ago",status:"No Response"},
+  {name:"Kim Nguyen",offer:"$18,900",vehicle:"2019 Honda Civic",sent:"2 days ago",status:"Opened"},
+  {name:"Paul Martin",offer:"$31,200",vehicle:"2021 Ford Explorer",sent:"5 days ago",status:"No Response"},
+  {name:"Amy Johnson",offer:"$26,800",vehicle:"2020 Honda CR-V",sent:"1 day ago",status:"Responded"},
+  {name:"Dan Wilson",offer:"$19,100",vehicle:"2018 Toyota Corolla",sent:"4 days ago",status:"No Response"},
+  {name:"Sara Davis",offer:"$34,700",vehicle:"2022 Chevy Silverado",sent:"2 days ago",status:"Opened"},
+  {name:"John Brown",offer:"$28,300",vehicle:"2021 Subaru Outback",sent:"6 days ago",status:"No Response"},
+  {name:"Mia Taylor",offer:"$23,500",vehicle:"2020 Jeep Cherokee",sent:"3 days ago",status:"No Response"}
 ];
-
-// Left panel config per view
-const LP_CONFIG = {
-  dashboard:{title:'Dashboard Summary',sections:[
-    {head:'Today's Priorities',items:[
-      {cls:'urgent',title:'3 IO Leads Need Follow-Up',sub:'Last contact >24h ago'},
-      {cls:'warning',title:'5 Aged Vehicles 60+ Days',sub:'Price reduction recommended'},
-      {cls:'ok',title:'12 Appraisals Scheduled',sub:'2 IO opportunities flagged'}
+const LPC={
+  dashboard:{title:"Dashboard Summary",sections:[
+    {head:"Priorities",items:[
+      {cls:"urgent",title:"3 IO Leads Need Follow-Up",sub:"Last contact >24h ago"},
+      {cls:"warning",title:"5 Aged Vehicles 60+ Days",sub:"Price reduction recommended"},
+      {cls:"ok",title:"12 Appraisals Scheduled",sub:"2 IO opportunities flagged"}
     ]},
-    {head:'30-Day Snapshot',stats:[
-      {label:'IO Leads Generated',val:'187'},{label:'Vehicles Acquired',val:'41',cls:'green'},
-      {label:'Avg Gross Profit',val:'$5,329',cls:'green'},{label:'Offer Acceptance',val:'68%',cls:'blue'},
-      {label:'Avg Days to Sell',val:'18.4',cls:'green'}
+    {head:"30-Day Snapshot",stats:[
+      {label:"IO Leads Generated",val:"187"},{label:"Vehicles Acquired",val:"41",cls:"green"},
+      {label:"Avg Gross Profit",val:"$5,329",cls:"green"},{label:"Offer Acceptance",val:"68%",cls:"blue"},
+      {label:"Avg Days to Sell",val:"18.4",cls:"green"}
     ]}
   ]},
-  appraisals:{title:'Appraisal Context',sections:[
-    {head:'Today's Appraisals',stats:[
-      {label:'Total Scheduled',val:'12'},{label:'IO Flagged',val:'3',cls:'blue'},
-      {label:'Buy Recommendations',val:'7',cls:'green'},{label:'Pass Recommendations',val:'2',cls:'red'}
+  appraisals:{title:"Appraisal Context",sections:[
+    {head:"Appraisals Today",stats:[
+      {label:"Total Scheduled",val:"12"},{label:"IO Flagged",val:"3",cls:"blue"},
+      {label:"Buy Recommendations",val:"7",cls:"green"},{label:"Pass Recommendations",val:"2",cls:"red"}
     ]},
-    {head:'Quick Links',items:[
-      {cls:'ok',title:'Run New Appraisal',sub:'AccuTrade live offer'},
-      {cls:'warning',title:'8 IO Recovery Leads',sub:'Need follow-up today'},
-      {cls:'urgent',title:'2 Offers Expiring',sub:'Within 24 hours'}
+    {head:"Quick Links",items:[
+      {cls:"ok",title:"Run New Appraisal",sub:"AccuTrade live offer"},
+      {cls:"warning",title:"8 IO Recovery Leads",sub:"Need follow-up today"},
+      {cls:"urgent",title:"2 Offers Expiring",sub:"Within 24 hours"}
     ]}
   ]},
-  inventory:{title:'Inventory Context',sections:[
-    {head:'Health Overview',stats:[
-      {label:'Total Units',val:'148'},{label:'Price Optimal',val:'94',cls:'green'},
-      {label:'Needs Action',val:'23',cls:'orange'},{label:'Aged 60+',val:'11',cls:'red'},
-      {label:'Avg Days in Stock',val:'24.7',cls:'green'}
+  inventory:{title:"Inventory Context",sections:[
+    {head:"Health Overview",stats:[
+      {label:"Total Units",val:"148"},{label:"Price Optimal",val:"94",cls:"green"},
+      {label:"Needs Action",val:"23",cls:"orange"},{label:"Aged 60+",val:"11",cls:"red"},
+      {label:"Avg Days in Stock",val:"24.7",cls:"green"}
     ]},
-    {head:'Acquisition Gaps',items:[
-      {cls:'urgent',title:'Toyota RAV4 (2021-23)',sub:'Demand 94 | Only 3 in stock'},
-      {cls:'urgent',title:'Honda CR-V (2020-22)',sub:'Demand 89 | Only 2 in stock'},
-      {cls:'warning',title:'Ford F-150 (2022-24)',sub:'Demand 87 | 5 in stock'}
+    {head:"Acquisition Gaps",items:[
+      {cls:"urgent",title:"Toyota RAV4 (2021-23)",sub:"Demand 94 | Only 3 in stock"},
+      {cls:"urgent",title:"Honda CR-V (2020-22)",sub:"Demand 89 | Only 2 in stock"},
+      {cls:"warning",title:"Ford F-150 (2022-24)",sub:"Demand 87 | 5 in stock"}
     ]}
   ]},
-  prospects:{title:'Pipeline Summary',sections:[
-    {head:'Pipeline Stats',stats:[
-      {label:'Total Active',val:'34'},{label:'Hot Prospects',val:'8',cls:'red'},
-      {label:'Offers Outstanding',val:'12',cls:'blue'},{label:'Acquired (30d)',val:'41',cls:'green'}
+  prospects:{title:"Pipeline Summary",sections:[
+    {head:"Pipeline Stats",stats:[
+      {label:"Total Active",val:"34"},{label:"Hot Prospects",val:"8",cls:"red"},
+      {label:"Offers Outstanding",val:"12",cls:"blue"},{label:"Acquired (30d)",val:"41",cls:"green"}
     ]},
-    {head:'Urgent Actions',items:[
-      {cls:'urgent',title:'3 Prospects Going Cold',sub:'No contact in 72h'},
-      {cls:'warning',title:'2 Offers Countered',sub:'Response needed today'}
+    {head:"Urgent Actions",items:[
+      {cls:"urgent",title:"3 Prospects Going Cold",sub:"No contact in 72h"},
+      {cls:"warning",title:"2 Offers Countered",sub:"Response needed today"}
     ]}
   ]},
-  service:{title:'Service Drive',sections:[
-    {head:'Today's Stats',stats:[
-      {label:'Total Appointments',val:'18'},{label:'IO Flagged',val:'3',cls:'blue'},
-      {label:'Appraised',val:'6',cls:'green'},{label:'Acquired',val:'2',cls:'green'}
+  service:{title:"Service Drive",sections:[
+    {head:"Stats",stats:[
+      {label:"Total Appointments",val:"18"},{label:"IO Flagged",val:"3",cls:"blue"},
+      {label:"Appraised",val:"6",cls:"green"},{label:"Acquired",val:"2",cls:"green"}
     ]},
-    {head:'IO Opportunities',items:[
-      {cls:'urgent',title:'Tom Bradley • 8:00 AM',sub:'RAV4 • Offer: $21,400'},
-      {cls:'warning',title:'Carol White • 9:30 AM',sub:'Equinox • Offer: $23,100'},
-      {cls:'ok',title:'Susan Lee • 8:30 AM',sub:'CR-V • Appraised ✔'}
+    {head:"IO Opportunities",items:[
+      {cls:"urgent",title:"Tom Bradley • 8:00 AM",sub:"RAV4 • Offer: $21,400"},
+      {cls:"warning",title:"Carol White • 9:30 AM",sub:"Equinox • Offer: $23,100"},
+      {cls:"ok",title:"Susan Lee • 8:30 AM",sub:"CR-V • Appraised ✔"}
     ]}
   ]},
-  reports:{title:'Report Overview',sections:[
-    {head:'Key Metrics (30d)',stats:[
-      {label:'Total Appraisals',val:'89'},{label:'Acceptance Rate',val:'60.7%',cls:'green'},
-      {label:'Avg Gross',val:'$2,180',cls:'green'},{label:'ROI Multiple',val:'52×',cls:'blue'}
+  reports:{title:"Report Overview",sections:[
+    {head:"Key Metrics (30d)",stats:[
+      {label:"Total Appraisals",val:"89"},{label:"Acceptance Rate",val:"60.7%",cls:"green"},
+      {label:"Avg Gross",val:"$2,180",cls:"green"},{label:"ROI Multiple",val:"52×",cls:"blue"}
     ]},
-    {head:'Quick Links',items:[
-      {cls:'ok',title:'Download PDF Report',sub:'Last generated today'},
-      {cls:'warning',title:'3 Metrics Flagged',sub:'vs prior month targets'}
+    {head:"Quick Links",items:[
+      {cls:"ok",title:"Download PDF Report",sub:"Last generated today"},
+      {cls:"warning",title:"3 Metrics Flagged",sub:"vs prior month targets"}
     ]}
   ]}
 };
 
-// ===== HELPERS =====
-function fmt(n){return '$'+Number(n).toLocaleString();}
+function fmt(n){return "$"+Number(n).toLocaleString();}
 function fmtN(n){return Number(n).toLocaleString();}
-function badgeCls(s){const m={Buy:'bg',Hold:'bo',Pass:'br',Acquired:'bb','Great Value':'bg','Good Value':'bb','Fair Price':'bgy','No Badge':'bgy','High Price':'br','Price Alert':'br'};return m[s]||'bgy';}
-function statusDot(s){const m={Buy:'🟢',Hold:'🟡',Pass:'🔴',Acquired:'🔵'};return (m[s]||'')+' '+s;}
+function badgeCls(s){var m={Buy:"bg",Hold:"bo",Pass:"br",Acquired:"bb","Great Value":"bg","Good Value":"bb","Fair Price":"bgy","No Badge":"bgy","High Price":"br","High Price Alert":"br"};return m[s]||"bgy";}
 
-// ===== VIEWS =====
 function switchView(v){
-  document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
-  document.getElementById('view-'+v).classList.add('active');
-  document.querySelector('[data-view="'+v+'"]').classList.add('active');
+  document.querySelectorAll(".view").forEach(function(el){el.classList.remove("active");});
+  document.querySelectorAll(".nav-item").forEach(function(el){el.classList.remove("active");});
+  document.getElementById("view-"+v).classList.add("active");
+  document.querySelector("[data-view="+v+"]").classList.add("active");
   renderLP(v);
-  if(v==='appraisals') renderAppraisals();
-  if(v==='inventory') renderInventory();
-  if(v==='prospects') renderKanban();
-  if(v==='service') renderService();
+  if(v==="appraisals")renderAppraisals();
+  if(v==="inventory")renderInventory();
+  if(v==="prospects")renderKanban();
+  if(v==="service")renderService();
 }
 
-// ===== LEFT PANEL =====
 function renderLP(v){
-  const cfg=LP_CONFIG[v]||LP_CONFIG.dashboard;
-  const lp=document.getElementById('leftPanel');
-  let html='<div class="lp-head"><h3>'+cfg.title+'</h3></div>';
-  cfg.sections.forEach(s=>{
-    html+='<div class="lp-section"><h4>'+s.head+'</h4>';
-    if(s.stats){s.stats.forEach(st=>{html+='<div class="lp-stat"><span class="lp-stat-label">'+st.label+'</span><span class="lp-stat-value '+(st.cls||'')+'">'+st.val+'</span></div>';});}
-    if(s.items){html+='<div class="lp-scroll" style="max-height:none;padding:0;">';s.items.forEach(it=>{html+='<div class="lp-item '+it.cls+'"><div class="lp-item-title">'+it.title+'</div><div class="lp-item-sub">'+it.sub+'</div></div>';});html+='</div>';}
-    html+='</div>';
+  var cfg=LPC[v]||LPC.dashboard;
+  var lp=document.getElementById("leftPanel");
+  var html="<div class=\"lp-head\"><h3>"+cfg.title+"</h3></div>";
+  cfg.sections.forEach(function(s){
+    html+="<div class=\"lp-section\"><h4>"+s.head+"</h4>";
+    if(s.stats){s.stats.forEach(function(st){html+="<div class=\"lp-stat\"><span class=\"lp-stat-label\">"+st.label+"</span><span class=\"lp-stat-value "+(st.cls||"")+"\">"+st.val+"</span></div>";});}
+    if(s.items){html+="<div>";s.items.forEach(function(it){html+="<div class=\"lp-item "+it.cls+"\"><div class=\"lp-item-title\">"+it.title+"</div><div class=\"lp-item-sub\">"+it.sub+"</div></div>";});html+="</div>";}
+    html+="</div>";
   });
   lp.innerHTML=html;
 }
 
-// ===== SUB TABS =====
 function switchSub(view,sub){
-  document.querySelectorAll('#view-'+view+' .sub-tab').forEach((t,i)=>{
-    const keys=Object.keys({all:1,live:1,io:1,summary:1,acquisition:1,roi:1,offers:1});
-    t.classList.toggle('active',t.getAttribute('onclick').includes("'"+sub+"'"));
+  document.querySelectorAll("#view-"+view+" .sub-tab").forEach(function(t){
+    t.classList.toggle("active",t.getAttribute("onclick").indexOf("'"+sub+"'")>=0);
   });
-  document.querySelectorAll('#view-'+view+' .sub-view').forEach(el=>{
-    el.classList.toggle('active',el.id==='sub-'+view+'-'+sub);
+  document.querySelectorAll("#view-"+view+" .sub-view").forEach(function(el){
+    el.classList.toggle("active",el.id==="sub-"+view+"-"+sub);
   });
-  if(view==='appraisals'&&sub==='live') renderLive();
-  if(view==='appraisals'&&sub==='io') renderIOLeads();
+  if(view==="appraisals"&&sub==="live")renderLive();
+  if(view==="appraisals"&&sub==="io")renderIOLeads();
 }
 
-// ===== APPRAISALS =====
-let _apprSort={col:'id',dir:1};
-let _apprFilter={text:'',status:'',source:''};
-function renderAppraisals(){
-  renderApprTable();
-  renderLive();
-  renderIOLeads();
-}
+var _apprSort={col:"id",dir:1};
+var _apprFilter={text:"",status:"",source:""};
+function renderAppraisals(){renderApprTable();renderLive();renderIOLeads();}
 function filterAppr(){
-  _apprFilter.text=document.getElementById('apprSearch').value.toLowerCase();
-  _apprFilter.status=document.getElementById('apprStatus').value;
-  _apprFilter.source=document.getElementById('apprSource').value;
+  _apprFilter.text=document.getElementById("apprSearch").value.toLowerCase();
+  _apprFilter.status=document.getElementById("apprStatus").value;
+  _apprFilter.source=document.getElementById("apprSource").value;
   renderApprTable();
 }
 function sortAppr(col){
-  if(_apprSort.col===col)_apprSort.dir*=-1; else{_apprSort.col=col;_apprSort.dir=1;}
+  if(_apprSort.col===col)_apprSort.dir*=-1;else{_apprSort.col=col;_apprSort.dir=1;}
   renderApprTable();
 }
 function renderApprTable(){
-  let rows=[...APPR];
-  if(_apprFilter.text) rows=rows.filter(r=>(r.name+r.vehicle+r.vin).toLowerCase().includes(_apprFilter.text));
-  if(_apprFilter.status) rows=rows.filter(r=>r.status===_apprFilter.status);
-  if(_apprFilter.source) rows=rows.filter(r=>r.source===_apprFilter.source);
-  rows.sort((a,b)=>{let av=a[_apprSort.col],bv=b[_apprSort.col];return typeof av==='string'?av.localeCompare(bv)*_apprSort.dir:(av-bv)*_apprSort.dir;});
-  document.getElementById('apprCount').textContent=rows.length+' records';
-  document.getElementById('apprBody').innerHTML=rows.map(r=>`<tr onclick="openDealSheet(${r.id})">
-    <td><div style="font-weight:600">${r.name}</div><div class="txs tmuted">${r.phone}</div></td>
-    <td>${r.vehicle}</td><td>${r.year}</td><td>${fmtN(r.miles)}</td>
-    <td class="tblue bold">${fmt(r.offer)}</td><td>${fmt(r.mmr)}</td>
-    <td><span class="badge bb">${r.demand}</span></td>
-    <td><span class="badge bgy">${r.source}</span></td>
-    <td><span class="badge ${badgeCls(r.status)}">${r.status}</span></td>
-    <td><button class="btn btn-primary btn-sm" onclick="event.stopPropagation();openDealSheet(${r.id})">View</button></td>
-  </tr>`).join('');
+  var rows=APPR.slice();
+  if(_apprFilter.text)rows=rows.filter(function(r){return(r.name+r.vehicle+r.vin).toLowerCase().indexOf(_apprFilter.text)>=0;});
+  if(_apprFilter.status)rows=rows.filter(function(r){return r.status===_apprFilter.status;});
+  if(_apprFilter.source)rows=rows.filter(function(r){return r.source===_apprFilter.source;});
+  rows.sort(function(a,b){var av=a[_apprSort.col],bv=b[_apprSort.col];return typeof av==="string"?av.localeCompare(bv)*_apprSort.dir:(av-bv)*_apprSort.dir;});
+  document.getElementById("apprCount").textContent=rows.length+" records";
+  document.getElementById("apprBody").innerHTML=rows.map(function(r){return "<tr onclick=\"openDealSheet("+r.id+")\">"+
+    "<td><div style=\"font-weight:600\">"+r.name+"</div><div class=\"txs tmuted\">"+r.phone+"</div></td>"+
+    "<td>"+r.vehicle+"</td><td>"+r.year+"</td><td>"+fmtN(r.miles)+"</td>"+
+    "<td class=\"tblue bold\">"+fmt(r.offer)+"</td><td>"+fmt(r.mmr)+"</td>"+
+    "<td><span class=\"badge bb\">"+r.demand+"</span></td>"+
+    "<td><span class=\"badge bgy\">"+r.source+"</span></td>"+
+    "<td><span class=\"badge "+badgeCls(r.status)+"\">"+r.status+"</span></td>"+
+    "<td><button class=\"btn btn-primary btn-sm\" onclick=\"event.stopPropagation();openDealSheet("+r.id+")\">View</button></td>"+
+    "</tr>";}).join("");
 }
 function renderLive(){
-  document.getElementById('liveBody').innerHTML=APPR.map(r=>`<tr onclick="selectLive(${r.id})" style="cursor:pointer;">
-    <td><strong>${r.name}</strong></td><td>${r.year} ${r.vehicle}</td><td>${fmtN(r.miles)}</td>
-    <td class="tblue bold">${fmt(r.offer)}</td><td>${fmt(r.mmr)}</td>
-    <td><span class="badge bb">${r.demand}</span></td>
-    <td><span class="badge ${badgeCls(r.status)}">${r.status}</span></td>
-  </tr>`).join('');
+  document.getElementById("liveBody").innerHTML=APPR.map(function(r){return "<tr onclick=\"selectLive("+r.id+")\">"+
+    "<td><strong>"+r.name+"</strong></td><td>"+r.year+" "+r.vehicle+"</td><td>"+fmtN(r.miles)+"</td>"+
+    "<td class=\"tblue bold\">"+fmt(r.offer)+"</td><td>"+fmt(r.mmr)+"</td>"+
+    "<td><span class=\"badge bb\">"+r.demand+"</span></td>"+
+    "<td><span class=\"badge "+badgeCls(r.status)+"\">"+r.status+"</span></td>"+
+    "</tr>";}).join("");
 }
 function selectLive(id){
-  const r=APPR.find(x=>x.id===id);if(!r)return;
+  var r=APPR.filter(function(x){return x.id===id;})[0];if(!r)return;
   window._liveRow=id;
-  const score=r.demand;
-  const offset=283-(283*score/100);
-  const ring=document.getElementById('demandRing');
+  var score=r.demand;
+  var offset=283-(283*score/100);
+  var ring=document.getElementById("demandRing");
   ring.style.strokeDashoffset=283;
-  setTimeout(()=>{ ring.style.strokeDashoffset=offset; },50);
-  document.getElementById('demandRingVal').textContent=score;
-  document.getElementById('demandSegLabel').textContent=r.year+' '+r.vehicle;
-  document.getElementById('liveDays').textContent=(Math.round(90/score*10))+'d';
-  document.getElementById('liveComp').textContent=Math.round(score*1.8)+' listings';
-  document.getElementById('liveAvgP').textContent=fmt(r.mmr+1200);
-  document.getElementById('liveATOffer').textContent=fmt(r.offer);
-  document.getElementById('liveMMR').textContent=fmt(r.mmr);
-  const diff=r.offer-r.mmr;
-  document.getElementById('liveVsMMR').innerHTML='<span class="'+(diff<0?'tgreen':'tred')+'">'+(diff<0?'-':'+')+''+fmt(Math.abs(diff))+'</span>';
-  document.getElementById('liveRecon').textContent=fmt(r.recon);
-  const gross=r.mmr-r.offer-r.recon+2400;
-  document.getElementById('liveGross').textContent=fmt(gross);
-  const recs={Buy:['#2e7d32','✅','BUY','Strong demand + good margin'],Hold:['#fb8c00','⚠️','HOLD','Review before committing'],Pass:['#c62828','🚫','PASS','Margin risk or low demand'],Acquired:['#0d47a1','🔵','ACQUIRED','Already in inventory']};
-  const rc=recs[r.status]||recs.Hold;
-  document.getElementById('liveRecCard').style.borderTop='4px solid '+rc[0];
-  document.getElementById('liveRecIcon').textContent=rc[1];
-  document.getElementById('liveRecLabel').textContent=rc[2];
-  document.getElementById('liveRecLabel').style.color=rc[0];
-  document.getElementById('liveRecSub').textContent=rc[3];
-  document.getElementById('liveRecBtn').style.display='inline-block';
+  setTimeout(function(){ring.style.strokeDashoffset=offset;},50);
+  document.getElementById("demandRingVal").textContent=score;
+  document.getElementById("demandSegLabel").textContent=r.year+" "+r.vehicle;
+  document.getElementById("liveDays").textContent=Math.round(90/score*10)+"d";
+  document.getElementById("liveComp").textContent=Math.round(score*1.8)+" listings";
+  document.getElementById("liveAvgP").textContent=fmt(r.mmr+1200);
+  document.getElementById("liveATOffer").textContent=fmt(r.offer);
+  document.getElementById("liveMMR").textContent=fmt(r.mmr);
+  var diff=r.offer-r.mmr;
+  document.getElementById("liveVsMMR").innerHTML="<span class=\""+(diff<0?"tgreen":"tred")+"\">"+(diff<0?"-":"+")+fmt(Math.abs(diff))+"</span>";
+  document.getElementById("liveRecon").textContent=fmt(r.recon);
+  var gross=r.mmr-r.offer-r.recon+2400;
+  document.getElementById("liveGross").textContent=fmt(gross);
+  var recs={Buy:["#2e7d32","✅","BUY","Strong demand + good margin"],Hold:["#fb8c00","⚠️","HOLD","Review before committing"],Pass:["#c62828","🚫","PASS","Margin risk or low demand"],Acquired:["#0d47a1","🔵","ACQUIRED","Already in inventory"]};
+  var rc=recs[r.status]||recs.Hold;
+  document.getElementById("liveRecCard").style.borderTop="4px solid "+rc[0];
+  document.getElementById("liveRecIcon").textContent=rc[1];
+  document.getElementById("liveRecLabel").textContent=rc[2];
+  document.getElementById("liveRecLabel").style.color=rc[0];
+  document.getElementById("liveRecSub").textContent=rc[3];
+  document.getElementById("liveRecBtn").style.display="inline-block";
 }
 function renderIOLeads(){
-  const sc=s=>({
-    'No Response':'<span class="badge br">No Response</span>',
-    'Opened':'<span class="badge bo">Opened</span>',
-    'Responded':'<span class="badge bg">Responded</span>'
-  })[s]||s;
-  document.getElementById('ioLeadBody').innerHTML=IO_LEADS.map(r=>`<tr>
-    <td><strong>${r.name}</strong></td><td class="tblue bold">${r.offer}</td>
-    <td>${r.vehicle}</td><td>${r.sent}</td>
-    <td>${sc(r.status)}</td>
-    <td><button class="btn btn-primary btn-sm">Follow Up</button></td>
-  </tr>`).join('');
+  var scMap={"No Response":"<span class=\"badge br\">No Response</span>","Opened":"<span class=\"badge bo\">Opened</span>","Responded":"<span class=\"badge bg\">Responded</span>"};
+  document.getElementById("ioLeadBody").innerHTML=IO_LEADS.map(function(r){return "<tr>"+
+    "<td><strong>"+r.name+"</strong></td><td class=\"tblue bold\">"+r.offer+"</td>"+
+    "<td>"+r.vehicle+"</td><td>"+r.sent+"</td>"+
+    "<td>"+(scMap[r.status]||r.status)+"</td>"+
+    "<td><button class=\"btn btn-primary btn-sm\">Follow Up</button></td>"+
+    "</tr>";}).join("");
 }
 
-// ===== INVENTORY =====
-let _invSort={col:'days',dir:-1};
-let _invFilter='all';
+var _invSort={col:"days",dir:-1};
+var _invFilter="all";
 function renderInventory(){renderInvTable();}
 function filterInv(f,el){
   _invFilter=f;
-  document.querySelectorAll('.fp').forEach(x=>x.classList.remove('active'));
-  el.classList.add('active');
+  document.querySelectorAll(".fp").forEach(function(x){x.classList.remove("active");});
+  el.classList.add("active");
   renderInvTable();
 }
 function filterInvTable(){renderInvTable();}
 function sortInv(col){
-  if(_invSort.col===col)_invSort.dir*=-1; else{_invSort.col=col;_invSort.dir=1;}
+  if(_invSort.col===col)_invSort.dir*=-1;else{_invSort.col=col;_invSort.dir=1;}
   renderInvTable();
 }
 function renderInvTable(){
-  let rows=[...INV];
-  const q=(document.getElementById('invSearch')||{}).value||'';
-  if(q) rows=rows.filter(r=>(r.vin+r.vehicle).toLowerCase().includes(q.toLowerCase()));
-  if(_invFilter==='action') rows=rows.filter(r=>r.status==='action');
-  if(_invFilter==='optimal') rows=rows.filter(r=>r.status==='optimal');
-  if(_invFilter==='aged') rows=rows.filter(r=>r.days>=60);
-  rows.sort((a,b)=>{let av=a[_invSort.col],bv=b[_invSort.col];return typeof av==='string'?av.localeCompare(bv)*_invSort.dir:(av-bv)*_invSort.dir;});
-  document.getElementById('invBody').innerHTML=rows.map(r=>`<tr>
-    <td class="txs tmuted">${r.vin}</td>
-    <td><strong>${r.vehicle}</strong></td>
-    <td><span class="${r.days>=60?'tred bold':r.days>=30?'torange':''}">${r.days}d</span></td>
-    <td class="bold">${fmt(r.price)}</td><td>${fmt(r.mmr)}</td>
-    <td><span class="badge bb">${r.demand}</span></td>
-    <td><span class="badge ${badgeCls(r.badge)}">${r.badge}</span></td>
-    <td><span class="badge ${r.status==='optimal'?'bg':r.status==='aged'?'br':'bo'}">${r.status==='optimal'?'Optimal':r.status==='aged'?'Aged 60+':'Action Needed'}</span></td>
-    <td><button class="btn btn-secondary btn-sm">Price</button></td>
-  </tr>`).join('');
+  var rows=INV.slice();
+  var q=(document.getElementById("invSearch")||{value:""}).value||"";
+  if(q)rows=rows.filter(function(r){return(r.vin+r.vehicle).toLowerCase().indexOf(q.toLowerCase())>=0;});
+  if(_invFilter==="action")rows=rows.filter(function(r){return r.status==="action";});
+  if(_invFilter==="optimal")rows=rows.filter(function(r){return r.status==="optimal";});
+  if(_invFilter==="aged")rows=rows.filter(function(r){return r.days>=60;});
+  rows.sort(function(a,b){var av=a[_invSort.col],bv=b[_invSort.col];return typeof av==="string"?av.localeCompare(bv)*_invSort.dir:(av-bv)*_invSort.dir;});
+  document.getElementById("invBody").innerHTML=rows.map(function(r){return "<tr>"+
+    "<td class=\"txs tmuted\">"+r.vin+"</td>"+
+    "<td><strong>"+r.vehicle+"</strong></td>"+
+    "<td><span class=\""+(r.days>=60?"tred bold":r.days>=30?"torange":"")+"\">"+(r.days)+"d</span></td>"+
+    "<td class=\"bold\">"+fmt(r.price)+"</td><td>"+fmt(r.mmr)+"</td>"+
+    "<td><span class=\"badge bb\">"+r.demand+"</span></td>"+
+    "<td><span class=\"badge "+badgeCls(r.badge)+"\">"+r.badge+"</span></td>"+
+    "<td><span class=\"badge "+(r.status==="optimal"?"bg":r.status==="aged"?"br":"bo")+"\">"+(r.status==="optimal"?"Optimal":r.status==="aged"?"Aged 60+":"Needs Action")+"</span></td>"+
+    "<td><button class=\"btn btn-secondary btn-sm\">Price</button></td>"+
+    "</tr>";}).join("");
 }
 
-// ===== KANBAN =====
-const KB_COLORS={'New Leads':'#ef5350','In Progress':'#fb8c00','Offer Made':'#0d47a1','Acquired':'#43a047'};
+var KB_COLORS={"New Leads":"#ef5350","In Progress":"#fb8c00","Offer Made":"#0d47a1","Acquired":"#43a047"};
 function renderKanban(){
-  const board=document.getElementById('kanbanBoard');
-  board.innerHTML=Object.entries(KANBAN_DATA).map(([col,cards])=>`
-    <div class="kb-col">
-      <div class="kb-col-hdr">
-        <span class="kb-col-title" style="color:${KB_COLORS[col]}">${col}</span>
-        <span class="kb-count">${cards.length}</span>
-      </div>
-      ${cards.map(c=>`<div class="kb-card ${c.heat}" onclick="openDealSheet(null)">
-        <div class="kb-name">${c.name}</div>
-        <div class="kb-veh">${c.vehicle}</div>
-        <div class="kb-foot">
-          <span class="txs tmuted">${c.sub}</span>
-          <span class="bold tblue">${c.offer}</span>
-        </div>
-      </div>`).join('')}
-    </div>
-  `).join('');
+  var board=document.getElementById("kanbanBoard");
+  board.innerHTML=Object.keys(KB).map(function(col){
+    var cards=KB[col];
+    return "<div class=\"kb-col\"><div class=\"kb-col-hdr\"><span class=\"kb-col-title\" style=\"color:"+KB_COLORS[col]+"\">"+col+"</span><span class=\"kb-count\">"+cards.length+"</span></div>"+
+      cards.map(function(c){return "<div class=\"kb-card "+c.heat+"\" onclick=\"openDealSheet(null)\"><div class=\"kb-name\">"+c.name+"</div><div class=\"kb-veh\">"+c.vehicle+"</div><div class=\"kb-foot\"><span class=\"txs tmuted\">"+c.sub+"</span><span class=\"bold tblue\">"+c.offer+"</span></div></div>";}).join("")+
+      "</div>";}).join("");
 }
 
-// ===== SERVICE DRIVE =====
-let _svcFilter='all';
+var _svcFilter="all";
 function renderService(){renderSvcTable();}
 function filterSvc(f,el){
   _svcFilter=f;
-  document.querySelectorAll('#view-service .fp').forEach(x=>x.classList.remove('active'));
-  el.classList.add('active');
+  document.querySelectorAll("#view-service .fp").forEach(function(x){x.classList.remove("active");});
+  el.classList.add("active");
   renderSvcTable();
 }
 function renderSvcTable(){
-  let rows=[...SVC];
-  if(_svcFilter==='io') rows=rows.filter(r=>r.io);
-  if(_svcFilter==='appraised') rows=rows.filter(r=>r.appraised);
-  document.getElementById('svcBody').innerHTML=rows.map(r=>`<tr>
-    <td class="bold">${r.time}</td>
-    <td><strong>${r.name}</strong></td>
-    <td>${r.vehicle}</td>
-    <td>${r.service}</td>
-    <td>${r.io?'<span class="badge bb">📢 IO Lead</span>':'<span class="badge bgy">None</span>'}</td>
-    <td>${r.offer||'<span class="tmuted">—</span>'}</td>
-    <td><span class="badge ${r.status==='In Bay'?'bg':r.status==='Checked In'?'bb':r.status==='Waiting'?'bo':'bgy'}">${r.status}</span></td>
-    <td><button class="btn btn-primary btn-sm" ${r.io?'':'style="opacity:.4;cursor:default;"'}>${r.io?'Appraise':'View'}</button></td>
-  </tr>`).join('');
+  var rows=SVC.slice();
+  if(_svcFilter==="io")rows=rows.filter(function(r){return r.io;});
+  if(_svcFilter==="appraised")rows=rows.filter(function(r){return r.appraised;});
+  var statusCls={"In Bay":"bg","Checked In":"bb","Waiting":"bo","Scheduled":"bgy"};
+  document.getElementById("svcBody").innerHTML=rows.map(function(r){return "<tr>"+
+    "<td class=\"bold\">"+r.time+"</td><td><strong>"+r.name+"</strong></td><td>"+r.vehicle+"</td><td>"+r.service+"</td>"+
+    "<td>"+(r.io?"<span class=\"badge bb\">📢 IO Lead</span>":"<span class=\"badge bgy\">None</span>")+"</td>"+
+    "<td>"+(r.offer||"<span class=\"tmuted\">—</span>")+"</td>"+
+    "<td><span class=\"badge "+(statusCls[r.status]||"bgy")+"\">" +r.status+"</span></td>"+
+    "<td><button class=\"btn btn-primary btn-sm\" "+(r.io?"":"style=\"opacity:.4;cursor:default;\"")+">"+(r.io?"Appraise":"View")+"</button></td>"+
+    "</tr>";}).join("");
 }
 
-// ===== DEAL SHEET =====
 function openDealSheet(id){
-  const r=typeof id==='number'?APPR.find(x=>x.id===id):null;
-  const body=document.getElementById('dealBody');
+  var r=typeof id==="number"?APPR.filter(function(x){return x.id===id;})[0]:null;
+  var body=document.getElementById("dealBody");
   if(r){
-    const gross=r.mmr-r.offer-r.recon+2400;
-    body.innerHTML=`
-      <div class="m-section"><h4>Vehicle &amp; Customer</h4>
-        <div class="m-grid">
-          <div class="m-field"><div class="m-field-lbl">Customer</div><div class="m-field-val">${r.name}</div></div>
-          <div class="m-field"><div class="m-field-lbl">Phone</div><div class="m-field-val">${r.phone}</div></div>
-          <div class="m-field"><div class="m-field-lbl">Vehicle</div><div class="m-field-val">${r.year} ${r.vehicle}</div></div>
-          <div class="m-field"><div class="m-field-lbl">VIN</div><div class="m-field-val" style="font-size:12px">${r.vin}</div></div>
-          <div class="m-field"><div class="m-field-lbl">Mileage</div><div class="m-field-val">${fmtN(r.miles)} mi</div></div>
-          <div class="m-field"><div class="m-field-lbl">Source</div><div class="m-field-val">${r.source}</div></div>
-        </div>
-      </div>
-      <div class="m-section"><h4>AccuTrade Valuation</h4>
-        <div class="m-grid">
-          <div class="m-field"><div class="m-field-lbl">AccuTrade Offer</div><div class="m-field-val tblue">${fmt(r.offer)}</div></div>
-          <div class="m-field"><div class="m-field-lbl">MMR</div><div class="m-field-val">${fmt(r.mmr)}</div></div>
-          <div class="m-field"><div class="m-field-lbl">vs MMR</div><div class="m-field-val ${r.offer<r.mmr?'tgreen':'tred'}">${r.offer<r.mmr?'-':'+'}+${fmt(Math.abs(r.offer-r.mmr))}</div></div>
-          <div class="m-field"><div class="m-field-lbl">Est. Recon</div><div class="m-field-val">${fmt(r.recon)}</div></div>
-        </div>
-      </div>
-      <div class="m-section"><h4>Cars.com Market Data</h4>
-        <div class="m-grid">
-          <div class="m-field"><div class="m-field-lbl">Demand Score</div><div class="m-field-val tblue">${r.demand}/100</div></div>
-          <div class="m-field"><div class="m-field-lbl">Avg Market Price</div><div class="m-field-val">${fmt(r.mmr+1200)}</div></div>
-          <div class="m-field"><div class="m-field-lbl">Days Supply</div><div class="m-field-val">${Math.round(90/r.demand*10)}d</div></div>
-          <div class="m-field"><div class="m-field-lbl">Competing Listings</div><div class="m-field-val">${Math.round(r.demand*1.8)}</div></div>
-        </div>
-      </div>
-      <div class="m-section"><h4>Projected Outcome</h4>
-        <div class="m-grid">
-          <div class="m-field"><div class="m-field-lbl">Projected Gross</div><div class="m-field-val tgreen bold">${fmt(gross)}</div></div>
-          <div class="m-field"><div class="m-field-lbl">Recommendation</div><div class="m-field-val"><span class="badge ${badgeCls(r.status)}">${r.status}</span></div></div>
-        </div>
-      </div>
-      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px;">
-        <button class="btn btn-secondary" onclick="closeDeal()">Close</button>
-        <button class="btn btn-primary">Accept &amp; Acquire</button>
-      </div>
-    `;
+    var gross=r.mmr-r.offer-r.recon+2400;
+    body.innerHTML="<div class=\"m-section\"><h4>Vehicle &amp; Customer</h4><div class=\"m-grid\">"+
+      "<div class=\"m-field\"><div class=\"m-field-lbl\">Customer</div><div class=\"m-field-val\">"+r.name+"</div></div>"+
+      "<div class=\"m-field\"><div class=\"m-field-lbl\">Phone</div><div class=\"m-field-val\">"+r.phone+"</div></div>"+
+      "<div class=\"m-field\"><div class=\"m-field-lbl\">Vehicle</div><div class=\"m-field-val\">"+r.year+" "+r.vehicle+"</div></div>"+
+      "<div class=\"m-field\"><div class=\"m-field-lbl\">VIN</div><div class=\"m-field-val\" style=\"font-size:12px\">"+r.vin+"</div></div>"+
+      "<div class=\"m-field\"><div class=\"m-field-lbl\">Mileage</div><div class=\"m-field-val\">"+fmtN(r.miles)+" mi</div></div>"+
+      "<div class=\"m-field\"><div class=\"m-field-lbl\">Source</div><div class=\"m-field-val\">"+r.source+"</div></div>"+
+      "</div></div>"+
+      "<div class=\"m-section\"><h4>AccuTrade Valuation</h4><div class=\"m-grid\">"+
+      "<div class=\"m-field\"><div class=\"m-field-lbl\">AccuTrade Offer</div><div class=\"m-field-val tblue\">"+fmt(r.offer)+"</div></div>"+
+      "<div class=\"m-field\"><div class=\"m-field-lbl\">MMR</div><div class=\"m-field-val\">"+fmt(r.mmr)+"</div></div>"+
+      "<div class=\"m-field\"><div class=\"m-field-lbl\">vs MMR</div><div class=\"m-field-val "+(r.offer<r.mmr?"tgreen":"tred")+"\">"+  (r.offer<r.mmr?"-":"+")+fmt(Math.abs(r.offer-r.mmr))+"</div></div>"+
+      "<div class=\"m-field\"><div class=\"m-field-lbl\">Est. Recon</div><div class=\"m-field-val\">"+fmt(r.recon)+"</div></div>"+
+      "</div></div>"+
+      "<div class=\"m-section\"><h4>Cars.com Market Data</h4><div class=\"m-grid\">"+
+      "<div class=\"m-field\"><div class=\"m-field-lbl\">Demand Score</div><div class=\"m-field-val tblue\">"+r.demand+"/100</div></div>"+
+      "<div class=\"m-field\"><div class=\"m-field-lbl\">Avg Market Price</div><div class=\"m-field-val\">"+fmt(r.mmr+1200)+"</div></div>"+
+      "<div class=\"m-field\"><div class=\"m-field-lbl\">Days Supply</div><div class=\"m-field-val\">"+Math.round(90/r.demand*10)+"d</div></div>"+
+      "<div class=\"m-field\"><div class=\"m-field-lbl\">Competing Listings</div><div class=\"m-field-val\">"+Math.round(r.demand*1.8)+"</div></div>"+
+      "</div></div>"+
+      "<div class=\"m-section\"><h4>Projected Outcome</h4><div class=\"m-grid\">"+
+      "<div class=\"m-field\"><div class=\"m-field-lbl\">Projected Gross</div><div class=\"m-field-val tgreen bold\">"+fmt(gross)+"</div></div>"+
+      "<div class=\"m-field\"><div class=\"m-field-lbl\">Recommendation</div><div class=\"m-field-val\"><span class=\"badge "+badgeCls(r.status)+"\">"+r.status+"</span></div></div>"+
+      "</div></div>"+
+      "<div style=\"display:flex;gap:10px;justify-content:flex-end;margin-top:16px;\">"+
+      "<button class=\"btn btn-secondary\" onclick=\"closeDeal()\">Close</button>"+
+      "<button class=\"btn btn-primary\">Accept &amp; Acquire</button></div>";
   } else {
-    body.innerHTML='<div style="padding:20px;text-align:center;color:#9e9e9e;">Select an appraisal record to view deal details.</div><div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px;"><button class="btn btn-secondary" onclick="closeDeal()">Close</button></div>';
+    body.innerHTML="<div style=\"padding:20px;text-align:center;color:#9e9e9e;\">Select an appraisal record to view deal details.</div><div style=\"display:flex;gap:10px;justify-content:flex-end;margin-top:16px;\"><button class=\"btn btn-secondary\" onclick=\"closeDeal()\">Close</button></div>";
   }
-  document.getElementById('dealModal').classList.add('open');
+  document.getElementById("dealModal").classList.add("open");
 }
-function closeDeal(){document.getElementById('dealModal').classList.remove('open');}
-document.getElementById('dealModal').addEventListener('click',function(e){if(e.target===this)closeDeal();});
-
-// ===== INIT =====
-renderLP('dashboard');
+function closeDeal(){document.getElementById("dealModal").classList.remove("open");}
+document.getElementById("dealModal").addEventListener("click",function(e){if(e.target===this)closeDeal();});
+renderLP("dashboard");
 </script>
 </body>
 </html>
